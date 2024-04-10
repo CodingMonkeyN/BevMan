@@ -1,0 +1,7 @@
+{
+  "name": "bev-man",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
