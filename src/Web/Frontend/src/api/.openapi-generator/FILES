@@ -1,0 +1,16 @@
+.gitignore
+.openapi-generator-ignore
+README.md
+api.module.ts
+api/api.ts
+api/product.service.ts
+configuration.ts
+encoder.ts
+git_push.sh
+index.ts
+model/create-product-command.ts
+model/models.ts
+model/product-dto.ts
+model/update-product-command.ts
+param.ts
+variables.ts

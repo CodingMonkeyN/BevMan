@@ -9,9 +9,14 @@ builder.Services.AddWebServices();
 
 WebApplication app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseSwagger();
+    app.UseSwaggerUI(settings =>
+    {
+        settings.DocumentTitle = "BevMan API";
+        settings.SwaggerEndpoint("/swagger/v1/swagger.json", "BevMan API V1");
+    });
 }
 else
 {
@@ -21,11 +26,6 @@ else
 
 app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
-
-app.UseSwaggerUI(settings =>
-{
-    settings.DocumentTitle = "BevMan API";
-});
 
 app.UseExceptionHandler(options => { });
 

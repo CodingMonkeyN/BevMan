@@ -17,7 +17,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore"/>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore"/>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI"/>
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
       <!-- The SPA Proxy is only used at development time -->
       <Publish>false</Publish>
@@ -35,6 +34,24 @@
     <None Remove="$(SpaRoot)**"/>
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**"/>
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\swagger\v1\" />
+  </ItemGroup>
+  
+  <Target Name="OpenAPI" AfterTargets="Build" Condition="$(Configuration)=='Debug'">
+    <Exec Command="dotnet tool restore"/>
+    <Exec Command="dotnet tool install Swashbuckle.AspNetCore.Cli --version 6.5.0"/>
+    <Message Text="generating openapi" Importance="high" />
+      <Exec Command="dotnet swagger tofile --output ./wwwroot/swagger/v1/swagger.yaml --yaml $(OutputPath)$(AssemblyName).dll v1" WorkingDirectory="$(ProjectDir)" />
+      <Exec Command="dotnet swagger tofile --output ./wwwroot/swagger/v1/swagger.json $(OutputPath)$(AssemblyName).dll v1" WorkingDirectory="$(ProjectDir)" />
+  </Target>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->

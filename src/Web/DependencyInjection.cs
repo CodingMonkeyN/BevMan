@@ -23,6 +23,7 @@ public static class DependencyInjection
             options.SuppressModelStateInvalidFilter = true);
 
         services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen();
 
         return services;
     }

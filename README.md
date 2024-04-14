@@ -6,6 +6,9 @@ To be able to run the application locally, you need to create a self-signed cert
 `openssl req -x509 -sha256 -nodes -newkey rsa:2048 -days 365 -subj '/CN=bev-man' -keyout bev-man.key -out bev-man.pem`
 After that you need to trust the certificate in your keychain
 
+## OpenApi Generator
+https://openapi-generator.tech/docs/generators/typescript-angular
+
 ## Build
 
 Run `dotnet build -tl` to build the solution.
