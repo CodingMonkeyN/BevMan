@@ -9,6 +9,12 @@ After that you need to trust the certificate in your keychain
 ## OpenApi Generator
 https://openapi-generator.tech/docs/generators/typescript-angular
 
+## Database
+The project uses a PostgreSQL database. You can run a PostgreSQL database in a Docker container by running the following command:
+
+## Supabase
+The project uses Supabase for the authentication and authorization.
+
 ## Build
 
 Run `dotnet build -tl` to build the solution.
