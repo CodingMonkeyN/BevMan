@@ -2,6 +2,7 @@ using BevMan.Web;
 using BevMan.Web.Infrastructure;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+builder.SetupConfiguration();
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);

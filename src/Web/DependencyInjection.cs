@@ -33,4 +33,15 @@ public static class DependencyInjection
 
         return services;
     }
+
+    public static WebApplicationBuilder SetupConfiguration(this WebApplicationBuilder builder)
+    {
+        string env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
+        builder.Configuration
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", false, true)
+            .AddJsonFile($"appsettings.{env}.json", true, true)
+            .AddEnvironmentVariables();
+        return builder;
+    }
 }
