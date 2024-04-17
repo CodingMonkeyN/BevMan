@@ -12,9 +12,9 @@
 
 
 export interface UpdateProductCommand { 
-    id?: number;
-    name?: string | null;
+    id: number;
+    name: string;
     description?: string | null;
-    price?: number;
+    price: number;
 }
 

@@ -1,7 +1,9 @@
 ﻿using BevMan.Application.Common.Interfaces;
 using BevMan.Infrastructure.Data;
 using BevMan.Web.Infrastructure;
+using BevMan.Web.OpenApi;
 using BevMan.Web.Services;
+using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BevMan.Web;
@@ -23,7 +25,11 @@ public static class DependencyInjection
             options.SuppressModelStateInvalidFilter = true);
 
         services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
+        services.AddSwaggerGen(config =>
+        {
+            config.SchemaFilter<RequiredMemberFilter>();
+        });
+        services.AddFluentValidationRulesToSwagger();
 
         return services;
     }

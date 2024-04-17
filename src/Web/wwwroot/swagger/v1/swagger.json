@@ -149,17 +149,25 @@
   "components": {
     "schemas": {
       "CreateProductCommand": {
+        "required": [
+          "name",
+          "price"
+        ],
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
           },
           "price": {
+            "minimum": 0,
+            "exclusiveMinimum": true,
             "type": "number",
             "format": "double"
           },
           "description": {
+            "maxLength": 500,
             "type": "string",
             "nullable": true
           }
@@ -167,11 +175,14 @@
         "additionalProperties": false
       },
       "ProductDto": {
+        "required": [
+          "name",
+          "price"
+        ],
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "price": {
             "type": "number",
@@ -185,6 +196,11 @@
         "additionalProperties": false
       },
       "UpdateProductCommand": {
+        "required": [
+          "id",
+          "name",
+          "price"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -192,14 +208,18 @@
             "format": "int32"
           },
           "name": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
           },
           "description": {
+            "maxLength": 500,
             "type": "string",
             "nullable": true
           },
           "price": {
+            "minimum": 0,
+            "exclusiveMinimum": true,
             "type": "number",
             "format": "double"
           }

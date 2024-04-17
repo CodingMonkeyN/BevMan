@@ -12,8 +12,8 @@
 
 
 export interface CreateProductCommand { 
-    name?: string | null;
-    price?: number;
+    name: string;
+    price: number;
     description?: string | null;
 }
 

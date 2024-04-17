@@ -15,8 +15,8 @@ public class UpdateProductCommandValidator : AbstractValidator<UpdateProductComm
     public UpdateProductCommandValidator()
     {
         RuleFor(command => command.Name).NotEmpty().MaximumLength(100);
-        RuleFor(command => command.Description).NotEmpty().MaximumLength(500);
-        RuleFor(command => command.Price).GreaterThan(0);
+        RuleFor(command => command.Description).MaximumLength(500);
+        RuleFor(command => command.Price).NotNull().GreaterThan(0);
     }
 }
 
