@@ -37,6 +37,11 @@ public static class DependencyInjection
         services.AddSingleton(TimeProvider.System);
 
         services.AddSupabaseAuth();
+        using (IServiceScope scope = services.BuildServiceProvider().CreateScope())
+        {
+            ApplicationDbContext db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            db.Database.Migrate();
+        }
 
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
@@ -44,7 +49,7 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddSupabaseAuth(this IServiceCollection services)
+    private static IServiceCollection AddSupabaseAuth(this IServiceCollection services)
     {
         services.AddOptions<SupabaseOptions>()
             .BindConfiguration("Supabase")
@@ -67,6 +72,7 @@ public static class DependencyInjection
                 ValidAudiences = validAudiences,
                 ValidIssuer = validIssuer
             };
+            options.TokenValidationParameters.RoleClaimType = "app_roles";
         });
         return services;
     }

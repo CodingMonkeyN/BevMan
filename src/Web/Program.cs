@@ -4,9 +4,9 @@ using BevMan.Web.Infrastructure;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.SetupConfiguration();
 
+builder.Services.AddWebServices();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
-builder.Services.AddWebServices();
 
 WebApplication app = builder.Build();
 

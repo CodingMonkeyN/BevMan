@@ -12,7 +12,8 @@ public static class DependencyInjection
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-        services.AddMediatR(cfg => {
+        services.AddMediatR(cfg =>
+        {
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
@@ -22,7 +23,7 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection RegisterAutoMappings(this IServiceCollection serviceCollection)
+    private static IServiceCollection RegisterAutoMappings(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddAutoMapper(Assembly.GetExecutingAssembly());
         serviceCollection.AddAutoMapper(
