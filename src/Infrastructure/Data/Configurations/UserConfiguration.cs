@@ -8,6 +8,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
+        builder.Property(user => user.Id).HasColumnName("id");
+        builder.Property(user => user.Email).HasColumnName("email");
+        builder.HasKey(user => user.Id);
         builder.ToTable("users", "auth", entityTypeBuilder =>
         {
             entityTypeBuilder.ExcludeFromMigrations();

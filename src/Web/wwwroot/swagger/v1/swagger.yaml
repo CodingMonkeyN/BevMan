@@ -121,6 +121,56 @@ paths:
       responses:
         '200':
           description: OK
+  /api/Role:
+    get:
+      tags:
+        - Role
+      operationId: GetRoles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /api/User:
+    get:
+      tags:
+        - User
+      operationId: GetUsers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDto'
+  '/api/UserRole/{id}':
+    put:
+      tags:
+        - UserRole
+      operationId: UpdateUserRoles
+      parameters:
+        - name: id
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRolesCommand'
+        required: true
+      responses:
+        '200':
+          description: OK
 components:
   schemas:
     BalanceDto:
@@ -202,4 +252,34 @@ components:
           exclusiveMinimum: true
           type: number
           format: double
+      additionalProperties: false
+    UpdateUserRolesCommand:
+      required:
+        - roles
+        - userId
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+        roles:
+          type: array
+          items:
+            type: string
+      additionalProperties: false
+    UserDto:
+      required:
+        - email
+        - roles
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
       additionalProperties: false
