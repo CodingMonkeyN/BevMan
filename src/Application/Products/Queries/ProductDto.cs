@@ -5,7 +5,8 @@ namespace BevMan.Application.Products.Queries;
 
 public class ProductDto : IMapFrom<Product>
 {
-    public required string Name { get; set; }
-    public required decimal Price { get; set; }
-    public string? Description { get; set; }
+    public required long Id { get; init; }
+    public required string Name { get; init; }
+    public required decimal Price { get; init; }
+    public string? Description { get; init; }
 }

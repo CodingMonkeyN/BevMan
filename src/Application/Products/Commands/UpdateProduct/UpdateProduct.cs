@@ -1,10 +1,11 @@
 ﻿using BevMan.Application.Common.Interfaces;
+using BevMan.Domain.Entities;
 
 namespace BevMan.Application.Products.Commands.UpdateProduct;
 
-public record UpdateProductCommand : IRequest<int>
+public record UpdateProductCommand : IRequest<long>
 {
-    public required int Id { get; init; }
+    public required long Id { get; init; }
     public required string Name { get; init; }
     public string? Description { get; init; }
     public required decimal Price { get; init; }
@@ -20,7 +21,7 @@ public class UpdateProductCommandValidator : AbstractValidator<UpdateProductComm
     }
 }
 
-public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, int>
+public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, long>
 {
     private readonly IApplicationDbContext _context;
 
@@ -29,9 +30,9 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
         _context = context;
     }
 
-    public async Task<int> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
+    public async Task<long> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _context.Products.FindAsync(new object[] {request.Id}, cancellationToken);
+        Product? entity = await _context.Products.FindAsync(new object[] { request.Id }, cancellationToken);
 
         Guard.Against.NotFound(request.Id, entity);
 

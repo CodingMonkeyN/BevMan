@@ -1,5 +1,4 @@
 ﻿using System.Security.Claims;
-
 using BevMan.Application.Common.Interfaces;
 
 namespace BevMan.Web.Services;

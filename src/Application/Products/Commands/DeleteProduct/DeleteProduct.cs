@@ -1,8 +1,9 @@
 ﻿using BevMan.Application.Common.Interfaces;
+using BevMan.Domain.Entities;
 
 namespace BevMan.Application.Products.Commands.DeleteProduct;
 
-public record DeleteProductCommand(int Id) : IRequest;
+public record DeleteProductCommand(long Id) : IRequest;
 
 public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand>
 {
@@ -15,7 +16,7 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand>
 
     public async Task Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _context.Products
+        Product? entity = await _context.Products
             .FindAsync(new object[] { request.Id }, cancellationToken);
 
         Guard.Against.NotFound(request.Id, entity);

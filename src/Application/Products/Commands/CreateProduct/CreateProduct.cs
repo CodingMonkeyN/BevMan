@@ -3,7 +3,7 @@ using BevMan.Domain.Entities;
 
 namespace BevMan.Application.Products.Commands.CreateProduct;
 
-public record CreateProductCommand : IRequest<int>
+public record CreateProductCommand : IRequest<long>
 {
     public required string Name { get; init; }
     public required decimal Price { get; init; }
@@ -20,7 +20,7 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
     }
 }
 
-public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, int>
+public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, long>
 {
     private readonly IApplicationDbContext _context;
 
@@ -29,14 +29,9 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         _context = context;
     }
 
-    public async Task<int> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task<long> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
-        var entity = new Product
-        {
-            Name = request.Name,
-            Price = request.Price,
-            Description = request.Description,
-        };
+        Product entity = new Product { Name = request.Name, Price = request.Price, Description = request.Description };
 
         _context.Products.Add(entity);
 

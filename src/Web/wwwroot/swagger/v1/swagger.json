@@ -5,6 +5,55 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/Balance": {
+      "get": {
+        "tags": [
+          "Balance"
+        ],
+        "operationId": "GetBalance",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BalanceDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Balance"
+        ],
+        "operationId": "UpdateBalance",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBalanceCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Product": {
       "get": {
         "tags": [
@@ -49,7 +98,7 @@
               "application/json": {
                 "schema": {
                   "type": "integer",
-                  "format": "int32"
+                  "format": "int64"
                 }
               }
             }
@@ -71,7 +120,7 @@
             "style": "simple",
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int64"
             }
           }
         ],
@@ -101,7 +150,7 @@
             "style": "simple",
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int64"
             }
           }
         ],
@@ -134,7 +183,7 @@
             "style": "simple",
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int64"
             }
           }
         ],
@@ -148,6 +197,16 @@
   },
   "components": {
     "schemas": {
+      "BalanceDto": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateProductCommand": {
         "required": [
           "name",
@@ -176,11 +235,16 @@
       },
       "ProductDto": {
         "required": [
+          "id",
           "name",
           "price"
         ],
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
           "name": {
             "type": "string"
           },
@@ -195,6 +259,20 @@
         },
         "additionalProperties": false
       },
+      "UpdateBalanceCommand": {
+        "required": [
+          "amount"
+        ],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "minimum": 0,
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
       "UpdateProductCommand": {
         "required": [
           "id",
@@ -205,7 +283,7 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           "name": {
             "maxLength": 100,

@@ -5,6 +5,7 @@ namespace BevMan.Application.Common.Interfaces;
 public interface IApplicationDbContext
 {
     DbSet<Product> Products { get; }
+    DbSet<Domain.Entities.Balance> Balances { get; }
     DbSet<UserRole> UserRoles { get; }
     DbSet<User> Users { get; }
 

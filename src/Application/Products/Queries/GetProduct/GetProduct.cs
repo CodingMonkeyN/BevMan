@@ -1,8 +1,9 @@
 ﻿using BevMan.Application.Common.Interfaces;
+using BevMan.Domain.Entities;
 
 namespace BevMan.Application.Products.Queries.GetProduct;
 
-public record GetProductQuery(int Id) : IRequest<ProductDto>;
+public record GetProductQuery(long Id) : IRequest<ProductDto>;
 
 public class GetProductQueryValidator : AbstractValidator<GetProductQuery>
 {
@@ -25,7 +26,7 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, ProductDt
 
     public async Task<ProductDto> Handle(GetProductQuery request, CancellationToken cancellationToken)
     {
-        var entity = await _context.Products.FindAsync(request.Id);
+        Product? entity = await _context.Products.FindAsync(request.Id);
 
         Guard.Against.NotFound(request.Id, entity);
 

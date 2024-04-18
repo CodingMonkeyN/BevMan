@@ -22,19 +22,23 @@ public class Product : EndpointGroupBase
             .MapDelete(DeleteTodoItem, "{id}");
     }
 
-    private Task<int> CreateProduct(ISender sender, CreateProductCommand command)
+    private Task<long> CreateProduct(ISender sender, CreateProductCommand command)
     {
         return sender.Send(command);
     }
 
-    private async Task<IResult> UpdateProduct(ISender sender, int id, UpdateProductCommand command)
+    private async Task<IResult> UpdateProduct(ISender sender, long id, UpdateProductCommand command)
     {
-        if (id != command.Id) return Results.BadRequest();
+        if (id != command.Id)
+        {
+            return Results.BadRequest();
+        }
+
         await sender.Send(command);
         return Results.NoContent();
     }
 
-    private async Task<IResult> DeleteTodoItem(ISender sender, int id)
+    private async Task<IResult> DeleteTodoItem(ISender sender, long id)
     {
         await sender.Send(new DeleteProductCommand(id));
         return Results.NoContent();
@@ -45,7 +49,7 @@ public class Product : EndpointGroupBase
         return await sender.Send(new GetProductsQuery());
     }
 
-    private async Task<ProductDto> GetProduct(ISender sender, int id)
+    private async Task<ProductDto> GetProduct(ISender sender, long id)
     {
         return await sender.Send(new GetProductQuery(id));
     }

@@ -17,8 +17,8 @@ public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where T
 
     public Task Process(TRequest request, CancellationToken cancellationToken)
     {
-        var requestName = typeof(TRequest).Name;
-        var userId = _user.Id ?? string.Empty;
+        string requestName = typeof(TRequest).Name;
+        string userId = _user.Id ?? string.Empty;
         string? userName = string.Empty;
 
         _logger.LogInformation("strichlisten_app Request: {Name} {@UserId} {@UserName} {@Request}",
