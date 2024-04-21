@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {IonApp, IonRouterOutlet} from '@ionic/angular/standalone';
+import { Router } from '@angular/router'
+import { SupabaseService } from './supabase.service'
 
 @Component({
   selector: 'app-root',
@@ -8,6 +10,15 @@ import {IonApp, IonRouterOutlet} from '@ionic/angular/standalone';
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
-  constructor() {
+  constructor(
+    private supabase: SupabaseService,
+    private router: Router
+  ) {
+    this.supabase.authChanges((_, session) => {
+      console.log(session)
+      if (session?.user) {
+        this.router.navigate(['/account'])
+      }
+    })
   }
 }
