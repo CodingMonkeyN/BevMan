@@ -14,37 +14,14 @@ import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-login',
-  template: `
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Login</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content>
-      <div class="ion-padding">
-        <h1>Supabase + Ionic Angular</h1>
-        <p>Sign in via magic link with your email below</p>
-      </div>
-      <ion-list inset="true">
-        <form (ngSubmit)="handleLogin($event)">
-          <ion-item>
-            <ion-label position="stacked">Email</ion-label>
-            <ion-input [(ngModel)]="email" name="email" autocomplete type="email"></ion-input>
-          </ion-item>
-          <div class="ion-text-center">
-            <ion-button type="submit" fill="clear">Login</ion-button>
-          </div>
-        </form>
-      </ion-list>
-    </ion-content>
-  `,
+  templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [IonButton, IonLabel, IonInput, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, FormsModule],
 })
 export class LoginPage {
   email = ''
+  password = ''
 
   constructor(private readonly supabase: SupabaseService) {}
 
@@ -53,7 +30,7 @@ export class LoginPage {
     const loader = await this.supabase.createLoader()
     await loader.present()
     try {
-      const { error } = await this.supabase.signIn(this.email)
+      const { error } = await this.supabase.signInEmailPassword(this.email, this.password)
       if (error) {
         throw error
       }

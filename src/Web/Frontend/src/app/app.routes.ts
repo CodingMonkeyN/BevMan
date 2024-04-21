@@ -1,5 +1,17 @@
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router'
-import { NgModule } from '@angular/core'
+import {
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  PreloadAllModules,
+  RouterModule,
+  RouterStateSnapshot,
+  Routes
+} from '@angular/router'
+import {inject, NgModule} from '@angular/core'
+import {SupabaseService} from "./supabase.service";
+
+const AuthGuard: CanActivateFn = async()  =>  {
+  return !!(await inject(SupabaseService).session)
+}
 
 export const routes: Routes = [
   {
@@ -8,7 +20,8 @@ export const routes: Routes = [
   },
   {
     path: 'account',
-    loadComponent: () => import('./account/account.page').then( m => m.AccountPage)
+    loadComponent: () => import('./account/account.page').then( m => m.AccountPage),
+    canActivate: [AuthGuard]
   },
 
 ];
