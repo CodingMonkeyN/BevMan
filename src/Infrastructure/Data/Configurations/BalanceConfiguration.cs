@@ -10,6 +10,5 @@ public class BalanceConfiguration : IEntityTypeConfiguration<Balance>
     {
         builder.HasKey(b => b.Id);
         builder.HasOne(b => b.User);
-        builder.ToTable("balances");
     }
 }

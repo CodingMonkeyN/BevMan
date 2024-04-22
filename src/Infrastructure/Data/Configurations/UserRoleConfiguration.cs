@@ -10,6 +10,5 @@ public class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
     {
         builder.HasKey(entity => entity.Id);
         builder.HasOne(entity => entity.User).WithMany(x => x.Roles);
-        builder.ToTable("user_roles");
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using BevMan.Application.Common.Interfaces;
 using BevMan.Domain.Constants;
+using BevMan.Domain.Entities;
 using BevMan.Infrastructure.Data;
 using BevMan.Infrastructure.Data.Interceptors;
 using BevMan.Infrastructure.Models;
@@ -9,6 +10,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Npgsql;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -25,11 +27,15 @@ public static class DependencyInjection
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
         services.AddOptionsWithValidateOnStart<SupabaseOptions>("supabase");
 
+        NpgsqlDataSourceBuilder dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
+        dataSourceBuilder.MapEnum<AppRole>();
+        NpgsqlDataSource dataSource = dataSourceBuilder.Build();
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
 
-            options.UseNpgsql(connectionString);
+            options.UseNpgsql(dataSource)
+                .UseSnakeCaseNamingConvention();
         });
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
