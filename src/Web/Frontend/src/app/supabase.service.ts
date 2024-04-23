@@ -30,14 +30,6 @@ export class SupabaseService {
     return this.supabase.auth.getSession().then(({ data }) => data?.session)
   }
 
-  get profile() {
-    return this.user
-      .then((user) => user?.id)
-      .then((id) =>
-        this.supabase.from('profiles').select(`username, website, avatar_url`).eq('id', id).single()
-      )
-  }
-
   authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void) {
     return this.supabase.auth.onAuthStateChange(callback)
   }
@@ -53,25 +45,6 @@ export class SupabaseService {
 
   signOut() {
     return this.supabase.auth.signOut()
-  }
-
-  async updateProfile(profile: Profile) {
-    const user = await this.user
-    const update = {
-      ...profile,
-      id: user?.id,
-      updated_at: new Date(),
-    }
-
-    return this.supabase.from('profiles').upsert(update)
-  }
-
-  downLoadImage(path: string) {
-    return this.supabase.storage.from('avatars').download(path)
-  }
-
-  uploadAvatar(filePath: string, file: File) {
-    return this.supabase.storage.from('avatars').upload(filePath, file)
   }
 
   async createNotice(message: string) {

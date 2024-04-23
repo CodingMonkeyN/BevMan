@@ -1,29 +1,23 @@
 import {
   ActivatedRouteSnapshot,
   CanActivateFn,
-  PreloadAllModules,
+  PreloadAllModules, Router,
   RouterModule,
   RouterStateSnapshot,
   Routes
 } from '@angular/router'
-import {inject, NgModule} from '@angular/core'
+import { NgModule} from '@angular/core'
 import {SupabaseService} from "./supabase.service";
+import {tabsRoutes} from "./tabs/tabs.routes";
+import {authGuard} from "./services/auth-guard.service";
 
-const AuthGuard: CanActivateFn = async()  =>  {
-  return !!(await inject(SupabaseService).session)
-}
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
   },
-  {
-    path: 'account',
-    loadComponent: () => import('./account/account.page').then( m => m.AccountPage),
-    canActivate: [AuthGuard]
-  },
-
+  ...tabsRoutes
 ];
 
 @NgModule({
