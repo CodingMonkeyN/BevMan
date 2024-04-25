@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design"/>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL"/>
+    <PackageReference Include="Supabase"/>
   </ItemGroup>
 
   <ItemGroup>

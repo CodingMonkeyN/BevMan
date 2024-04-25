@@ -17,6 +17,7 @@
     <PackageVersion Include="MicroElements.Swashbuckle.FluentValidation" Version="6.0.0"/>
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4"/>
     <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.2"/>
+    <PackageVersion Include="Microsoft.AspNetCore.Http" Version="2.2.2"/>
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.2"/>
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.2"/>
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.2"/>
@@ -39,6 +40,8 @@
     <PackageVersion Include="NUnit.Analyzers" Version="3.9.0"/>
     <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0"/>
     <PackageVersion Include="Respawn" Version="6.1.0"/>
+    <PackageVersion Include="Supabase" Version="1.0.0"/>
+    <PackageVersion Include="Supabase.Storage" Version="2.0.0"/>
     <PackageVersion Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0"/>
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0"/>
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0"/>

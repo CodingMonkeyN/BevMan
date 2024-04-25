@@ -6,6 +6,7 @@ using BevMan.Application.Products.Queries.GetProduct;
 using BevMan.Application.Products.Queries.GetProducts;
 using BevMan.Web.Infrastructure;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BevMan.Web.Endpoints;
 
@@ -14,6 +15,7 @@ public class Product : EndpointGroupBase
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
+            .DisableAntiforgery()
             .MapGet(GetProducts)
             .MapGet(GetProduct, "{id}")
             .MapPost(CreateProduct, role: BevMan.Infrastructure.Models.Role.Admin)
@@ -21,12 +23,12 @@ public class Product : EndpointGroupBase
             .MapDelete(DeleteTodoItem, "{id}", BevMan.Infrastructure.Models.Role.Admin);
     }
 
-    private Task<long> CreateProduct(ISender sender, CreateProductCommand command)
+    private Task<long> CreateProduct(ISender sender, [FromForm] CreateProductCommand command)
     {
         return sender.Send(command);
     }
 
-    private async Task<IResult> UpdateProduct(ISender sender, long id, UpdateProductCommand command)
+    private async Task<IResult> UpdateProduct(ISender sender, long id, [FromForm] UpdateProductCommand command)
     {
         if (id != command.Id)
         {

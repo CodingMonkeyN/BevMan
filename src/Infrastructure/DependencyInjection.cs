@@ -4,13 +4,15 @@ using BevMan.Domain.Constants;
 using BevMan.Domain.Entities;
 using BevMan.Infrastructure.Data;
 using BevMan.Infrastructure.Data.Interceptors;
-using BevMan.Infrastructure.Models;
+using BevMan.Infrastructure.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Npgsql;
+using Supabase;
+using SupabaseOptions = BevMan.Infrastructure.Models.SupabaseOptions;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -27,7 +29,7 @@ public static class DependencyInjection
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
         services.AddOptionsWithValidateOnStart<SupabaseOptions>("supabase");
 
-        NpgsqlDataSourceBuilder dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
+        NpgsqlDataSourceBuilder dataSourceBuilder = new(connectionString);
         dataSourceBuilder.MapEnum<AppRole>();
         NpgsqlDataSource dataSource = dataSourceBuilder.Build();
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
@@ -42,7 +44,7 @@ public static class DependencyInjection
 
         services.AddSingleton(TimeProvider.System);
 
-        services.AddSupabaseAuth();
+        services.AddSupabase();
         using (IServiceScope scope = services.BuildServiceProvider().CreateScope())
         {
             ApplicationDbContext db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -55,12 +57,13 @@ public static class DependencyInjection
         return services;
     }
 
-    private static IServiceCollection AddSupabaseAuth(this IServiceCollection services)
+    private static IServiceCollection AddSupabase(this IServiceCollection services)
     {
         services.AddOptions<SupabaseOptions>()
             .BindConfiguration("Supabase")
             .ValidateDataAnnotations()
             .ValidateOnStart();
+
 
         ServiceProvider serviceProvider = services.BuildServiceProvider();
 
@@ -80,6 +83,9 @@ public static class DependencyInjection
             };
             options.TokenValidationParameters.RoleClaimType = "app_roles";
         });
+
+        services.AddScoped<IStorageService, SupabaseStorageService>();
+        services.AddScoped<Client>(_ => new Client(supabaseOptions.ProjectUrl, supabaseOptions.ApiKey));
         return services;
     }
 }

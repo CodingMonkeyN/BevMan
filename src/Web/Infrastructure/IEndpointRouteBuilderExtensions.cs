@@ -57,7 +57,7 @@ public static class IEndpointRouteBuilderExtensions
     {
         if (!string.IsNullOrEmpty(role))
         {
-            route.AddRoleRequirement(role);
+            route.RequireAuthorization(p => p.RequireRole(role));
         }
 
         return route;
