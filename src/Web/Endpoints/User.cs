@@ -10,8 +10,7 @@ public class User : EndpointGroupBase
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
-            .AllowAnonymous()
-            .MapGet(GetUsers);
+            .MapGet(GetUsers, role: BevMan.Infrastructure.Models.Role.UserManager);
     }
 
     private async Task<IEnumerable<UserDto>> GetUsers(ISender sender)

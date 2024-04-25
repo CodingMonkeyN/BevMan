@@ -10,7 +10,6 @@ public class Balance : EndpointGroupBase
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
-            .AllowAnonymous()
             .MapGet(GetBalance)
             .MapPut(UpdateBalance, "");
     }

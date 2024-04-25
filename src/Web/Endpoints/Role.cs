@@ -9,8 +9,7 @@ public class Role : EndpointGroupBase
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
-            .AllowAnonymous()
-            .MapGet(GetRoles);
+            .MapGet(GetRoles, role: BevMan.Infrastructure.Models.Role.UserManager);
     }
 
     private async Task<string[]> GetRoles(ISender sender)

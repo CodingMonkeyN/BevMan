@@ -9,8 +9,7 @@ public class UserRole : EndpointGroupBase
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
-            .AllowAnonymous()
-            .MapPut(UpdateUserRoles, "{id}");
+            .MapPut(UpdateUserRoles, "{id}", BevMan.Infrastructure.Models.Role.UserManager);
     }
 
     private async Task<IResult> UpdateUserRoles(ISender sender, Guid id, UpdateUserRolesCommand command)
