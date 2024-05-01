@@ -1,23 +1,18 @@
-import {
-  ActivatedRouteSnapshot,
-  CanActivateFn,
-  PreloadAllModules, Router,
-  RouterModule,
-  RouterStateSnapshot,
-  Routes
-} from '@angular/router'
-import { NgModule} from '@angular/core'
-import {SupabaseService} from "./supabase.service";
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router'
+import {NgModule} from '@angular/core'
 import {tabsRoutes} from "./tabs/tabs.routes";
-import {authGuard} from "./services/auth-guard.service";
 
 
 export const routes: Routes = [
   {
     path: 'login',
-    loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
+    loadComponent: () => import('./login/login.page').then(m => m.LoginPage)
   },
-  ...tabsRoutes
+  {
+    path: 'signup',
+    loadComponent: () => import('./signup/signup.page').then(m => m.SignupPage)
+  },
+  ...tabsRoutes,
 ];
 
 @NgModule({
@@ -28,4 +23,5 @@ export const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

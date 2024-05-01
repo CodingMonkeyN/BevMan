@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form>
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input type="email" name="email" [(ngModel)]="email" readonly></ion-input>
+    </ion-item>
+  </form>
+
+  <div class="ion-text-center">
+    <ion-button fill="clear" (click)="signOut()">Log Out</ion-button>
+  </div>
+</ion-content>
