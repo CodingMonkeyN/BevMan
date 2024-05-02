@@ -9,6 +9,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
     public DbSet<User> Users => Set<User>();
+    public DbSet<StorageObject> StorageObjects => Set<StorageObject>();
     public DbSet<Balance> Balances => Set<Balance>();
     public DbSet<UserRole> UserRoles => Set<UserRole>();
     public DbSet<Product> Products => Set<Product>();

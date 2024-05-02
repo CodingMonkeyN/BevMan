@@ -47,9 +47,14 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         }
 
         Blob blob = new(request.Image);
-        (string imagePath, string publicUrl) = await _storageService.UploadFileAsync(blob, "products",
-            $"{entity.Id}/{entity.Name}{Path.GetExtension(blob.FileName)}", cancellationToken);
-        entity.ImagePath = imagePath;
+        string path = blob.Name;
+        string[] pathTokens = path.Split('/');
+        string publicUrl = await _storageService.UploadFileAsync(blob, "products",
+            path, cancellationToken);
+        StorageObject? storageObject = await _context.StorageObjects
+            .Where(storage => storage.BucketId == "products" && storage.PathTokens.Equals(pathTokens))
+            .FirstOrDefaultAsync(cancellationToken);
+        entity.StorageObject = storageObject;
         entity.PublicUrl = publicUrl;
         await _context.SaveChangesAsync(cancellationToken);
 

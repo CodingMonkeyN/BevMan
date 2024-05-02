@@ -12,10 +12,9 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.Name)
             .IsRequired()
             .HasMaxLength(100);
+        builder.HasOne(p => p.StorageObject).WithOne().HasForeignKey<Product>(p => p.StorageObjectId);
         builder.Property(p => p.Description)
             .HasMaxLength(500);
-        builder.Property(p => p.ImagePath)
-            .HasMaxLength(255);
         builder.Property(p => p.PublicUrl)
             .HasMaxLength(255);
     }

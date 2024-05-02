@@ -19,17 +19,18 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand>
     public async Task Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
         Product? entity = await _context.Products
-            .FindAsync(new object[] { request.Id }, cancellationToken);
+            .Include(product => product.StorageObject)
+            .FirstOrDefaultAsync(product => product.Id == request.Id, cancellationToken);
 
         Guard.Against.NotFound(request.Id, entity);
 
+        StorageObject? storageObject = entity.StorageObject;
         _context.Products.Remove(entity);
-        if (!string.IsNullOrEmpty(entity.ImagePath))
-        {
-            // TODO: FIND THE REASON WHY THE BLOB DOES NOT GET DELETED
-            await _storageService.DeleteFileAsync("products", entity.ImagePath, cancellationToken);
-        }
-
         await _context.SaveChangesAsync(cancellationToken);
+        if (storageObject is not null)
+        {
+            await _storageService.DeleteFileAsync("products", string.Join("/", storageObject.PathTokens),
+                cancellationToken);
+        }
     }
 }

@@ -20,7 +20,7 @@ public class SupabaseStorageService : IStorageService
         await _supabaseClient.Storage.From(bucket).Remove(path);
     }
 
-    public async Task<(string Path, string PublicUrl)> UploadFileAsync(Blob blob, string bucket, string path,
+    public async Task<string> UploadFileAsync(Blob blob, string bucket, string path,
         CancellationToken cancellationToken)
     {
         Bucket? existingBucket = await _supabaseClient.Storage.GetBucket(bucket);
@@ -36,6 +36,6 @@ public class SupabaseStorageService : IStorageService
             .Upload(memoryStream.ToArray(), path,
                 new FileOptions { Upsert = true });
         string publicUrl = _supabaseClient.Storage.From(bucket).GetPublicUrl(resultPath);
-        return (resultPath, publicUrl);
+        return publicUrl;
     }
 }
