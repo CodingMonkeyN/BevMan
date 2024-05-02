@@ -15,13 +15,12 @@ public class Product : EndpointGroupBase
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
-            .AllowAnonymous()
             .DisableAntiforgery()
             .MapGet(GetProducts)
             .MapGet(GetProduct, "{id}")
-            .MapPost(CreateProduct)
-            .MapPut(UpdateProduct, "{id}")
-            .MapDelete(DeleteTodoItem, "{id}");
+            .MapPost(CreateProduct, role: BevMan.Infrastructure.Models.Role.Admin)
+            .MapPut(UpdateProduct, "{id}", BevMan.Infrastructure.Models.Role.Admin)
+            .MapDelete(DeleteTodoItem, "{id}", BevMan.Infrastructure.Models.Role.Admin);
     }
 
     private Task<long> CreateProduct(ISender sender, [FromForm] CreateProductCommand command)
