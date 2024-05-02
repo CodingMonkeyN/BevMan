@@ -11,10 +11,9 @@
  */
 
 
-export interface ProductDto { 
-    id: number;
-    name: string;
-    price: number;
-    description?: string | null;
+export interface UserDto { 
+    id?: string;
+    email: string;
+    roles: Array<string>;
 }
 
