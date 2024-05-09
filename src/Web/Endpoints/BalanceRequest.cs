@@ -11,7 +11,6 @@ public class BalanceRequest : EndpointGroupBase
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
-            .AllowAnonymous()
             .MapGet(GetBalanceRequests)
             .MapPost(Approve);
     }

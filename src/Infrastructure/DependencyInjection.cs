@@ -69,7 +69,7 @@ public static class DependencyInjection
 
         SupabaseOptions supabaseOptions = serviceProvider.GetRequiredService<IOptions<SupabaseOptions>>().Value;
         SymmetricSecurityKey supasbaseSignatureKey = new(Encoding.UTF8.GetBytes(supabaseOptions.JwtSecret));
-        string validIssuer = $"https://{supabaseOptions.ProjectName}.supabase.co/auth/v1";
+        string validIssuer = $"{supabaseOptions.ProjectUrl}/auth/v1";
         string[] validAudiences = { "authenticated" };
 
         services.AddAuthentication().AddJwtBearer(options =>

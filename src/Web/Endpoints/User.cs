@@ -10,7 +10,6 @@ public class User : EndpointGroupBase
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
-            .AllowAnonymous()
             .MapGet(GetUsers, role: BevMan.Infrastructure.Models.Role.UserManager);
     }
 

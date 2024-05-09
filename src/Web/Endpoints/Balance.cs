@@ -1,4 +1,5 @@
 using BevMan.Application.Balance.Commands.UpdateBalance;
+using BevMan.Application.Balance.Queries;
 using BevMan.Application.Balance.Queries.GetBalance;
 using BevMan.Application.BalanceRequest.Commands.ApproveBalanceUpdate;
 using BevMan.Web.Infrastructure;

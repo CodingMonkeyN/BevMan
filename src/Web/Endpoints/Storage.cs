@@ -1,1 +1,0 @@
-namespace BevMan.Web.Endpoints;
