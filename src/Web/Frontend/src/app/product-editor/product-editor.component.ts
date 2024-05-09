@@ -112,4 +112,15 @@ export class ProductEditorComponent {
       console.error(error);
     }
   }
+
+  delete(): void {
+    if (!this.id()) {
+      return
+    }
+    try {
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }

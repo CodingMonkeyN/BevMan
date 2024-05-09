@@ -29,7 +29,13 @@
     </ion-item>
 
     <div class="ion-text-center">
-      <ion-button (click)="save()" type="submit" fill="clear">Speichern</ion-button>
+      <ion-button (click)="save()" type="submit" size="full">
+        {{ 'PRODUCTS.EDITOR.SAVE_BUTTON' | translate }}
+      </ion-button>
+      <br>
+      <ion-button (click)="delete()" size="full" color="danger">
+        {{ 'PRODUCTS.EDITOR.DELETE_BUTTON' | translate }}
+      </ion-button>
     </div>
   </form>
 </ion-content>

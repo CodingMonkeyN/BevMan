@@ -18,7 +18,9 @@
       "NAME_LABEL": "Name",
       "PRICE_LABEL": "Preis in Euro",
       "QUANTITY_LABEL": "Anzahl auf Lager",
-      "DESCRIPTION_LABEL": "Beschreibung"
+      "DESCRIPTION_LABEL": "Beschreibung",
+      "SAVE_BUTTON": "Produkt speichern",
+      "DELETE_BUTTON": "Produkt löschen"
     }
   },
   "USER": {
