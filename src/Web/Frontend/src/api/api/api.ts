@@ -1,5 +1,7 @@
 export * from './balance.service';
 import { BalanceService } from './balance.service';
+export * from './balance-request.service';
+import { BalanceRequestService } from './balance-request.service';
 export * from './product.service';
 import { ProductService } from './product.service';
 export * from './role.service';
@@ -8,4 +10,4 @@ export * from './user.service';
 import { UserService } from './user.service';
 export * from './user-role.service';
 import { UserRoleService } from './user-role.service';
-export const APIS = [BalanceService, ProductService, RoleService, UserService, UserRoleService];
+export const APIS = [BalanceService, BalanceRequestService, ProductService, RoleService, UserService, UserRoleService];

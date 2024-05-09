@@ -11,10 +11,8 @@
  */
 
 
-export interface UserDto { 
-    id?: string;
-    email: string;
-    roles: Array<string>;
-    displayName?: string | null;
+export interface ApproveBalanceUpdateCommand { 
+    balanceRequestId: number;
+    isApproved?: boolean;
 }
 

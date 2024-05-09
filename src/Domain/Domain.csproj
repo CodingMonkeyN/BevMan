@@ -9,6 +9,7 @@
     <PackageReference Include="MediatR"/>
     <PackageReference Include="Microsoft.AspNetCore.Http"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions"/>
+    <PackageReference Include="Newtonsoft.Json"/>
   </ItemGroup>
 
 </Project>

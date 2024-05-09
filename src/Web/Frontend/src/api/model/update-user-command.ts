@@ -11,10 +11,8 @@
  */
 
 
-export interface UserDto { 
+export interface UpdateUserCommand { 
     id?: string;
-    email: string;
-    roles: Array<string>;
     displayName?: string | null;
 }
 

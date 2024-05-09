@@ -5,6 +5,11 @@
 </ion-header>
 
 <ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{ 'PRODUCTS.TITLE' | translate }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
   <ion-list>
     @for (product of products(); track product.id) {
       <ion-item-sliding>

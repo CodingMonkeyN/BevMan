@@ -1,12 +1,23 @@
 {
+  "GLOBAL": {
+    "SAVE": "Speichern"
+  },
   "PRODUCTS": {
-    "TITLE": "Produkte",
+    "TITLE": "Getränke",
     "SLIDE_ACTION_BUY": "Kaufen"
   },
   "USER": {
     "TITLE": "Nutzerverwaltung",
     "SLIDE_ACTION_CHANGE_ROLE": "Rolle anpassen",
-    "SLIDE_ACTION_REMOVE_USER": "Benutzer entfernen"
+    "SLIDE_ACTION_REMOVE_USER": "Benutzer entfernen",
+    "DETAILS": {
+      "ROLES": "Rollen"
+    },
+    "ROLES": {
+      "ADMIN": "Administrator",
+      "USER": "Benutzer",
+      "USER_MANAGER": "Benutzerverwalter"
+    }
   },
   "STORAGE": {
     "TITLE": "Lager",

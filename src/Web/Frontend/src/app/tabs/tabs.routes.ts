@@ -27,9 +27,19 @@ export const tabsRoutes: Routes = [
         ],
       },
       {
-        path: 'tab3',
-        loadComponent: () =>
-          import('../tab3/tab3.page').then((m) => m.Tab3Page),
+        path: 'users',
+        children: [
+          {
+            loadComponent: () =>
+              import('../user/user-page').then((m) => m.UserPage),
+            path: '',
+          },
+          {
+            loadComponent: () =>
+              import('../user/user-details/user-details.component').then((m) => m.UserDetailsComponent),
+            path: ':id',
+          }
+        ],
       },
       {
         path: 'account',

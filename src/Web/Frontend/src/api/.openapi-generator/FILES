@@ -3,6 +3,7 @@
 README.md
 api.module.ts
 api/api.ts
+api/balance-request.service.ts
 api/balance.service.ts
 api/product.service.ts
 api/role.service.ts
@@ -12,12 +13,14 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
+model/approve-balance-update-command.ts
 model/balance-dto.ts
 model/create-product-command.ts
 model/models.ts
 model/product-dto.ts
 model/update-balance-command.ts
 model/update-product-command.ts
+model/update-user-command.ts
 model/update-user-roles-command.ts
 model/user-dto.ts
 param.ts
