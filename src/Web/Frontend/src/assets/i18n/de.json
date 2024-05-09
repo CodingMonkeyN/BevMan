@@ -4,7 +4,10 @@
   },
   "PRODUCTS": {
     "TITLE": "Getränke",
-    "SLIDE_ACTION_BUY": "Kaufen"
+    "SLIDE_ACTION_BUY": "Kaufen",
+    "EDITOR": {
+      "TITLE": "Getränk bearbeiten"
+    }
   },
   "USER": {
     "TITLE": "Nutzerverwaltung",

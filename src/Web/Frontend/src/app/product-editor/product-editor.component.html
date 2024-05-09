@@ -4,11 +4,25 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title translate>PRODUCTS.TITLE</ion-title>
-
+    <ion-title>{{ 'PRODUCTS.EDITOR.TITLE' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <p>TEST</p>
+  <ion-list inset="true">
+    <form (ngSubmit)="handleProductSaved($event)">
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+
+      <div class="ion-text-center">
+        <ion-button type="submit" fill="clear">SignUp</ion-button>
+      </div>
+    </form>
+  </ion-list>
 </ion-content>

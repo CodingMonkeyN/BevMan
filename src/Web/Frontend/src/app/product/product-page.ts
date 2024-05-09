@@ -30,7 +30,13 @@ import {Router, RouterLink} from "@angular/router";
   selector: 'app-product-page',
   templateUrl: 'product-page.html',
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, TranslateModule, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonThumbnail, IonPopover, IonItemSliding, IonItemOption, IonItemOptions, IonAvatar, IonRouterLink, RouterLink]
+  imports: [IonHeader, IonToolbar, IonTitle,
+    IonContent, IonList, IonItem, IonLabel,
+    TranslateModule, IonCard, IonCardHeader,
+    IonCardTitle, IonCardSubtitle, IonCardContent,
+    IonThumbnail, IonPopover, IonItemSliding,
+    IonItemOption, IonItemOptions, IonAvatar,
+    IonRouterLink, RouterLink]
 })
 export class ProductPage {
   protected readonly products: Signal<ProductDto[] | undefined>
