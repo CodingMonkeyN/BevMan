@@ -7,7 +7,6 @@ public class UserDto : IMapFrom<Domain.Entities.User>
     public Guid Id { get; init; }
     public required string Email { get; init; }
     public required string[] Roles { get; init; }
-    public string? DisplayName { get; init; }
 
     public void Mapping(Profile profile)
     {

@@ -279,27 +279,6 @@ paths:
       responses:
         '200':
           description: OK
-    put:
-      tags:
-        - User
-      operationId: UpdateUser
-      parameters:
-        - name: id
-          in: path
-          required: true
-          style: simple
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateUserCommand'
-        required: true
-      responses:
-        '200':
-          description: OK
   '/api/UserRole/{id}':
     put:
       tags:
@@ -464,17 +443,6 @@ components:
         deleteImage:
           type: boolean
       additionalProperties: false
-    UpdateUserCommand:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        displayName:
-          maxLength: 50
-          type: string
-          nullable: true
-      additionalProperties: false
     UpdateUserRolesCommand:
       required:
         - roles
@@ -504,7 +472,4 @@ components:
           type: array
           items:
             type: string
-        displayName:
-          type: string
-          nullable: true
       additionalProperties: false
