@@ -41,7 +41,7 @@ public class AddProductImageCommandHandler : IRequestHandler<AddProductImageComm
         Guard.Against.NotFound(request.ProductId, entity);
 
         Blob blob = new(request.Image);
-        string path = blob.Name;
+        string path = request.ProductId.ToString();
         string[] pathTokens = path.Split('/');
         string publicUrl = await _storageService.UploadFileAsync(blob, "products",
             path, cancellationToken);

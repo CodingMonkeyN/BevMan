@@ -24,7 +24,7 @@
           }
         }
       },
-      "put": {
+      "post": {
         "tags": [
           "Balance"
         ],
@@ -50,6 +50,40 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/BalanceRequest": {
+      "get": {
+        "tags": [
+          "BalanceRequest"
+        ],
+        "operationId": "GetBalanceRequests",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "BalanceRequest"
+        ],
+        "operationId": "Approve",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApproveBalanceUpdateCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -187,6 +221,46 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Product/{id}/buy": {
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "operationId": "BuyProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteProductImageCommand"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteProductImageCommand"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -371,6 +445,22 @@
             "minLength": 1,
             "type": "string",
             "format": "binary"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApproveBalanceUpdateCommand": {
+        "required": [
+          "balanceRequestId"
+        ],
+        "type": "object",
+        "properties": {
+          "balanceRequestId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "isApproved": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

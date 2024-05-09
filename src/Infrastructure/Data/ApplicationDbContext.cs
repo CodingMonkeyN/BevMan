@@ -11,6 +11,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<User> Users => Set<User>();
     public DbSet<StorageObject> StorageObjects => Set<StorageObject>();
     public DbSet<Balance> Balances => Set<Balance>();
+    public DbSet<BalanceRequest> BalanceRequests => Set<BalanceRequest>();
     public DbSet<UserRole> UserRoles => Set<UserRole>();
     public DbSet<Product> Products => Set<Product>();
 

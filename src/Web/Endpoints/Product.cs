@@ -21,6 +21,7 @@ public class Product : EndpointGroupBase
             .DisableAntiforgery()
             .MapGet(GetProducts)
             .MapGet(GetProduct, "{id}")
+            .MapPost(BuyProduct, "{id}/buy")
             .MapPost(CreateProduct, role: BevMan.Infrastructure.Models.Role.Admin)
             .MapPost(AddProductImage, "{id}/image", BevMan.Infrastructure.Models.Role.Admin)
             .MapDelete(DeleteProductImage, "{id}/image", BevMan.Infrastructure.Models.Role.Admin)
@@ -73,6 +74,18 @@ public class Product : EndpointGroupBase
     }
 
     private async Task<IResult> DeleteProductImage(ISender sender, long id,
+        [FromForm] DeleteProductImageCommand command)
+    {
+        if (id != command.ProductId)
+        {
+            return Results.BadRequest();
+        }
+
+        await sender.Send(command);
+        return Results.NoContent();
+    }
+
+    private async Task<IResult> BuyProduct(ISender sender, long id,
         [FromForm] DeleteProductImageCommand command)
     {
         if (id != command.ProductId)

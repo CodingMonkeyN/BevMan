@@ -32,10 +32,10 @@ public class SupabaseStorageService : IStorageService
         await using Stream stream = blob.Content();
         await using MemoryStream memoryStream = new();
         await stream.CopyToAsync(memoryStream, cancellationToken);
-        string resultPath = await _supabaseClient.Storage.From(bucket)
+        await _supabaseClient.Storage.From(bucket)
             .Upload(memoryStream.ToArray(), path,
                 new FileOptions { Upsert = true });
-        string publicUrl = _supabaseClient.Storage.From(bucket).GetPublicUrl(resultPath);
+        string publicUrl = _supabaseClient.Storage.From(bucket).GetPublicUrl(path);
         return publicUrl;
     }
 }

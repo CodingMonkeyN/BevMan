@@ -1,5 +1,8 @@
 {
   "PRODUCTS": {
     "TITLE": "Produkte"
+  },
+  "STORAGE": {
+    "TITLE": "Lager"
   }
 }
