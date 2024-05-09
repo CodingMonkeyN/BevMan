@@ -16,5 +16,6 @@ export interface ProductDto {
     name: string;
     price: number;
     description?: string | null;
+    publicUrl?: string | null;
 }
 

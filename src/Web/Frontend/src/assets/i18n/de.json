@@ -1,8 +1,17 @@
 {
   "PRODUCTS": {
-    "TITLE": "Produkte"
+    "TITLE": "Produkte",
+    "SLIDE_ACTION_BUY": "Kaufen"
+  },
+  "USER": {
+    "TITLE": "Nutzerverwaltung",
+    "SLIDE_ACTION_CHANGE_ROLE": "Rolle anpassen",
+    "SLIDE_ACTION_REMOVE_USER": "Benutzer entfernen"
   },
   "STORAGE": {
-    "TITLE": "Lager"
+    "TITLE": "Lager",
+    "BUTTON_ADD_BEVERAGE": "Getränk hinzufügen",
+    "SLIDE_ACTION_EDIT_BEVERAGE": "Getränk bearbeiten",
+    "SLIDE_ACTION_REMOVE_BEVERAGE": "Getränk entfernen"
   }
 }
