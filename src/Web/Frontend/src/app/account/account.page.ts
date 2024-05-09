@@ -13,12 +13,13 @@ import {
   IonToolbar
 } from "@ionic/angular/standalone";
 import {FormsModule} from "@angular/forms";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.page.html',
   standalone: true,
-  imports: [IonButton, IonLabel, IonInput, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, FormsModule],
+  imports: [IonButton, IonLabel, IonInput, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, FormsModule, TranslateModule],
 })
 export class AccountPage implements OnInit {
   email = ''

@@ -4,11 +4,37 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title translate>PRODUCTS.TITLE</ion-title>
-
+    <ion-title>{{ 'PRODUCTS.EDITOR.TITLE' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <p>TEST</p>
+  <form [formGroup]="form">
+    <ion-item>
+      <ion-input label="{{ 'PRODUCTS.EDITOR.NAME_LABEL' | translate}}" label-placement="stacked"
+                 [formControl]="form.controls.name"/>
+    </ion-item>
+    <ion-item>
+      <ion-input label="{{ 'PRODUCTS.EDITOR.PRICE_LABEL' | translate}}" label-placement="stacked"
+                 [formControl]="form.controls.price"/>
+    </ion-item>
+    <ion-item>
+      <ion-input label="{{ 'PRODUCTS.EDITOR.QUANTITY_LABEL' | translate}}" label-placement="stacked"
+                 [formControl]="form.controls.quantity"/>
+    </ion-item>
+    <ion-item>
+      <ion-input label="{{ 'PRODUCTS.EDITOR.DESCRIPTION_LABEL' | translate}}" label-placement="stacked"
+                 [formControl]="form.controls.description"/>
+    </ion-item>
+
+    <div class="ion-text-center">
+      <ion-button (click)="save()" type="submit" size="full">
+        {{ 'PRODUCTS.EDITOR.SAVE_BUTTON' | translate }}
+      </ion-button>
+      <br>
+      <ion-button (click)="delete()" size="full" color="danger">
+        {{ 'PRODUCTS.EDITOR.DELETE_BUTTON' | translate }}
+      </ion-button>
+    </div>
+  </form>
 </ion-content>

@@ -9,11 +9,6 @@ export const tabsRoutes: Routes = [
     canActivate: [authGuard],
     children: [
       {
-        path: 'tab1',
-        loadComponent: () =>
-          import('./../tab1/tab1.page').then((m) => m.Tab1Page),
-      },
-      {
         path: 'products',
         children: [
           {

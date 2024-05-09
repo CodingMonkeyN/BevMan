@@ -1,30 +1,32 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Login</ion-title>
+    <ion-title>{{ 'LOGIN.TITLE' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="ion-padding">
     <h1>BevMan</h1>
-    <p>Sign in via E-Mail and Password</p>
+    <p>{{ 'LOGIN.TEXT' | translate }}</p>
   </div>
   <ion-list inset="true">
     <form (ngSubmit)="handleLogin($event)">
       <ion-item>
-        <ion-label position="stacked">Email</ion-label>
-        <ion-input [(ngModel)]="email" name="email" autocomplete type="email"></ion-input>
+        <ion-input label="{{ 'LOGIN.EMAIL_LABEL' | translate }}" label-placement="floating" [(ngModel)]="email"
+                   name="email" autocomplete
+                   type="email"/>
       </ion-item>
       <ion-item>
-        <ion-label position="stacked">Password</ion-label>
-        <ion-input [(ngModel)]="password" name="password" autocomplete type="password"></ion-input>
+        <ion-input label="{{ 'LOGIN.PASSWORD_LABEL' | translate }}" label-placement="floating" [(ngModel)]="password"
+                   name="password" autocomplete
+                   type="password"/>
       </ion-item>
       <div class="ion-text-center">
-        <ion-button type="submit" fill="clear">Login</ion-button>
+        <ion-button type="submit" fill="clear">{{ 'LOGIN.LOGIN_BUTTON' | translate }}</ion-button>
       </div>
     </form>
     <div class="ion-text-center">
-      <ion-button fill="clear" (click)="redirectToSignUp()">SignUp</ion-button>
+      <ion-button fill="clear" (click)="redirectToSignUp()">{{ 'LOGIN.SIGNUP_BUTTON' | translate }}</ion-button>
     </div>
   </ion-list>
 </ion-content>

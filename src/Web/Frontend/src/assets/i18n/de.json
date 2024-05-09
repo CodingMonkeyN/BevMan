@@ -1,10 +1,27 @@
 {
+  "LOGIN": {
+    "TITLE": "Login",
+    "TEXT": "Anmeldung mit Email und Passwort",
+    "EMAIL_LABEL": "Email",
+    "PASSWORD_LABEL": "Passwort",
+    "LOGIN_BUTTON": "Anmelden",
+    "SIGNUP_BUTTON": "Regestrieren"
+  },
   "GLOBAL": {
     "SAVE": "Speichern"
   },
   "PRODUCTS": {
     "TITLE": "Getränke",
-    "SLIDE_ACTION_BUY": "Kaufen"
+    "SLIDE_ACTION_BUY": "Kaufen",
+    "EDITOR": {
+      "TITLE": "Getränk bearbeiten",
+      "NAME_LABEL": "Name",
+      "PRICE_LABEL": "Preis in Euro",
+      "QUANTITY_LABEL": "Anzahl auf Lager",
+      "DESCRIPTION_LABEL": "Beschreibung",
+      "SAVE_BUTTON": "Produkt speichern",
+      "DELETE_BUTTON": "Produkt löschen"
+    }
   },
   "USER": {
     "TITLE": "Nutzerverwaltung",
@@ -19,10 +36,9 @@
       "USER_MANAGER": "Benutzerverwalter"
     }
   },
-  "STORAGE": {
-    "TITLE": "Lager",
-    "BUTTON_ADD_BEVERAGE": "Getränk hinzufügen",
-    "SLIDE_ACTION_EDIT_BEVERAGE": "Getränk bearbeiten",
-    "SLIDE_ACTION_REMOVE_BEVERAGE": "Getränk entfernen"
+  "ACCOUNT": {
+    "TITLE": "Account",
+    "EMAIL_LABEL": "Email",
+    "LOGOUT_BUTTON": "Abmelden"
   }
 }
