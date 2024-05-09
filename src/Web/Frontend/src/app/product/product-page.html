@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title translate>PRODUCTS.TITLE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    @for (product of products(); track product.id) {
+      <ion-item>
+        <ion-label>{{ product.name }}</ion-label>
+        <ion-label>{{ product.price }} €</ion-label>
+        <ion-label>{{ product.description }}</ion-label>
+      </ion-item>
+    }
+  </ion-list>
+</ion-content>

@@ -11,10 +11,7 @@
  */
 
 
-export interface ProductDto { 
-    id: number;
-    name: string;
-    price: number;
-    description?: string | null;
+export interface BalanceDto { 
+    amount?: number;
 }
 

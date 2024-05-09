@@ -4,6 +4,7 @@ using BevMan.Web.Infrastructure;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.SetupConfiguration();
 
+builder.Services.AddCors();
 builder.Services.AddWebServices();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
@@ -27,6 +28,7 @@ else
 
 app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
+app.UseCors(config => config.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 app.UseExceptionHandler(options => { });
 

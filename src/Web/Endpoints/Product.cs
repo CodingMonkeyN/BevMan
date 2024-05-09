@@ -15,12 +15,13 @@ public class Product : EndpointGroupBase
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
+            .AllowAnonymous()
             .DisableAntiforgery()
             .MapGet(GetProducts)
             .MapGet(GetProduct, "{id}")
             .MapPost(CreateProduct, role: BevMan.Infrastructure.Models.Role.Admin)
             .MapPut(UpdateProduct, "{id}", BevMan.Infrastructure.Models.Role.Admin)
-            .MapDelete(DeleteTodoItem, "{id}", BevMan.Infrastructure.Models.Role.Admin);
+            .MapDelete(DeleteProduct, "{id}", BevMan.Infrastructure.Models.Role.Admin);
     }
 
     private Task<long> CreateProduct(ISender sender, [FromForm] CreateProductCommand command)
@@ -39,7 +40,7 @@ public class Product : EndpointGroupBase
         return Results.NoContent();
     }
 
-    private async Task<IResult> DeleteTodoItem(ISender sender, long id)
+    private async Task<IResult> DeleteProduct(ISender sender, long id)
     {
         await sender.Send(new DeleteProductCommand(id));
         return Results.NoContent();

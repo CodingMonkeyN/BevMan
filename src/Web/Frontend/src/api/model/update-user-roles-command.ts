@@ -11,10 +11,8 @@
  */
 
 
-export interface ProductDto { 
-    id: number;
-    name: string;
-    price: number;
-    description?: string | null;
+export interface UpdateUserRolesCommand { 
+    userId: string;
+    roles: Array<string>;
 }
 
