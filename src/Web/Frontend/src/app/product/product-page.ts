@@ -1,4 +1,4 @@
-import {Component, Signal} from '@angular/core';
+import {Component, inject, Signal} from '@angular/core';
 import {
   IonAvatar,
   IonCard,
@@ -8,6 +8,7 @@ import {
   IonCardTitle,
   IonContent,
   IonHeader,
+  IonIcon,
   IonItem,
   IonItemOption,
   IonItemOptions,
@@ -27,6 +28,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
 import {TranslateModule} from "@ngx-translate/core";
 import {UserRoleService} from "../services/user-role.service";
 import {Router, RouterLink} from "@angular/router";
+import {UserRole} from "../enums/user-role.enum";
 
 @Component({
   selector: 'app-product-page',
@@ -38,13 +40,24 @@ import {Router, RouterLink} from "@angular/router";
     IonCardTitle, IonCardSubtitle, IonCardContent,
     IonThumbnail, IonPopover, IonItemSliding,
     IonItemOption, IonItemOptions, IonAvatar,
-    IonRouterLink, RouterLink, IonText, IonNote]
+    IonRouterLink, RouterLink, IonText, IonNote, IonIcon]
 })
 export class ProductPage {
   protected readonly products: Signal<ProductDto[] | undefined>
+  protected readonly userRole = inject(UserRoleService);
+  protected readonly UserRole = UserRole;
+  protected routerLinkParameter: string | undefined = undefined;
 
-  constructor(private readonly product: ProductService, private readonly userRole: UserRoleService, private readonly router: Router) {
+
+  constructor(private readonly product: ProductService, private readonly router: Router) {
     this.products = toSignal(this.product.getProducts())
+  }
+
+  protected getRouterLink(id: number): any {
+    if (this.userRole.hasRoles([UserRole.Admin])) {
+      return id.toString()
+    }
+    return undefined
   }
 
   protected slideActionBuy(product: ProductDto): void {

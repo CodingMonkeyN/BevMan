@@ -12,12 +12,20 @@
 
   <form [formGroup]="form">
     <ion-item>
-      <ion-label position="stacked">Name</ion-label>
-      <ion-input [formControl]="form.controls.name"></ion-input>
+      <ion-input label="{{ 'PRODUCTS.EDITOR.NAME_LABEL' | translate}}" label-placement="stacked"
+                 [formControl]="form.controls.name"/>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked">Password</ion-label>
-      <ion-input></ion-input>
+      <ion-input label="{{ 'PRODUCTS.EDITOR.PRICE_LABEL' | translate}}" label-placement="stacked"
+                 [formControl]="form.controls.price"/>
+    </ion-item>
+    <ion-item>
+      <ion-input label="{{ 'PRODUCTS.EDITOR.QUANTITY_LABEL' | translate}}" label-placement="stacked"
+                 [formControl]="form.controls.quantity"/>
+    </ion-item>
+    <ion-item>
+      <ion-input label="{{ 'PRODUCTS.EDITOR.DESCRIPTION_LABEL' | translate}}" label-placement="stacked"
+                 [formControl]="form.controls.description"/>
     </ion-item>
 
     <div class="ion-text-center">

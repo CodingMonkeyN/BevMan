@@ -1,18 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Account</ion-title>
+    <ion-title>{{ 'ACCOUNT.TITLE' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <form>
     <ion-item>
-      <ion-input label="Email" label-placement="stacked" type="email" name="email" [(ngModel)]="email"
+      <ion-input label="{{ 'ACCOUNT.EMAIL_LABEL' | translate }}" label-placement="stacked" type="email" name="email"
+                 [(ngModel)]="email"
                  readonly></ion-input>
     </ion-item>
   </form>
 
   <div class="ion-text-center">
-    <ion-button fill="clear" (click)="signOut()">Log Out</ion-button>
+    <ion-button fill="clear" (click)="signOut()">{{ 'ACCOUNT.LOGOUT_BUTTON' | translate }}</ion-button>
   </div>
 </ion-content>

@@ -106,7 +106,8 @@ export class ProductEditorComponent {
     }
     try {
       await firstValueFrom(this.product.updateProduct(this.id()!, {...this.form.getRawValue(), id: this.id()!}))
-      await this.router.navigate(['..']);
+      await this.router.navigate(['tabs', 'products']);
+      console.log("Product saved successfully.");
     } catch (error) {
       console.error(error);
     }

@@ -13,17 +13,23 @@
   <ion-list>
     @for (product of products(); track product.id) {
       <ion-item-sliding>
-        <ion-item [routerLink]="undefined">
+
+        <ion-item [routerLink]="getRouterLink(product.id)">
           <ion-thumbnail slot="start">
-            <img [src]="product.publicUrl"/>
+            @if (product.publicUrl) {
+              <img [src]="product.publicUrl"/>
+            } @else {
+              <ion-icon style="font-size: 50px; vertical-align: middle; horiz-align: center" name="beer"/>
+            }
           </ion-thumbnail>
           <ion-label>
             <ion-text>{{ product.name }}</ion-text>
             <br/>
-            <ion-note>{{ product.description }}</ion-note>
+            <ion-note style="font-size: small">{{ product.description }}</ion-note>
           </ion-label>
-          <ion-label slot="end">{{ product.price }} €</ion-label>
+          <ion-label style="font-size: large" slot="end">{{ product.price }} €</ion-label>
         </ion-item>
+
         <ion-item-options side="end">
           <ion-item-option color="medium"
                            (click)="slideActionBuy(product)">{{ 'PRODUCTS.SLIDE_ACTION_BUY' | translate }}
