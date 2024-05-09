@@ -14,8 +14,10 @@ import {
   IonItemSliding,
   IonLabel,
   IonList,
+  IonNote,
   IonPopover,
   IonRouterLink,
+  IonText,
   IonThumbnail,
   IonTitle,
   IonToolbar
@@ -36,7 +38,7 @@ import {Router, RouterLink} from "@angular/router";
     IonCardTitle, IonCardSubtitle, IonCardContent,
     IonThumbnail, IonPopover, IonItemSliding,
     IonItemOption, IonItemOptions, IonAvatar,
-    IonRouterLink, RouterLink]
+    IonRouterLink, RouterLink, IonText, IonNote]
 })
 export class ProductPage {
   protected readonly products: Signal<ProductDto[] | undefined>

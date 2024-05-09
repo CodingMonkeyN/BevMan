@@ -12,12 +12,12 @@
   <ion-list inset="true">
     <form (ngSubmit)="handleLogin($event)">
       <ion-item>
-        <ion-label position="stacked">Email</ion-label>
-        <ion-input [(ngModel)]="email" name="email" autocomplete type="email"></ion-input>
+        <ion-input label="Email" label-placement="floating" [(ngModel)]="email" name="email" autocomplete
+                   type="email"/>
       </ion-item>
       <ion-item>
-        <ion-label position="stacked">Password</ion-label>
-        <ion-input [(ngModel)]="password" name="password" autocomplete type="password"></ion-input>
+        <ion-input label="Password" label-placement="floating" [(ngModel)]="password" name="password" autocomplete
+                   type="password"/>
       </ion-item>
       <div class="ion-text-center">
         <ion-button type="submit" fill="clear">Login</ion-button>

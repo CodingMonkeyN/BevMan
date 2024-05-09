@@ -9,20 +9,19 @@
 </ion-header>
 
 <ion-content>
-  <ion-list inset="true">
-    <form (ngSubmit)="handleProductSaved($event)">
-      <ion-item>
-        <ion-label position="stacked">Email</ion-label>
-        <ion-input></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Password</ion-label>
-        <ion-input></ion-input>
-      </ion-item>
 
-      <div class="ion-text-center">
-        <ion-button type="submit" fill="clear">SignUp</ion-button>
-      </div>
-    </form>
-  </ion-list>
+  <form [formGroup]="form">
+    <ion-item>
+      <ion-label position="stacked">Name</ion-label>
+      <ion-input [formControl]="form.controls.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Password</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+
+    <div class="ion-text-center">
+      <ion-button (click)="save()" type="submit" fill="clear">Speichern</ion-button>
+    </div>
+  </form>
 </ion-content>

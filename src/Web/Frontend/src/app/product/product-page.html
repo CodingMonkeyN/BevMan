@@ -13,13 +13,14 @@
   <ion-list>
     @for (product of products(); track product.id) {
       <ion-item-sliding>
-        <ion-item [routerLink]="product.id.toString()">
+        <ion-item [routerLink]="undefined">
           <ion-thumbnail slot="start">
             <img [src]="product.publicUrl"/>
           </ion-thumbnail>
           <ion-label>
-            <h1>{{ product.name }}</h1>
-            <p>{{ product.description }}</p>
+            <ion-text>{{ product.name }}</ion-text>
+            <br/>
+            <ion-note>{{ product.description }}</ion-note>
           </ion-label>
           <ion-label slot="end">{{ product.price }} €</ion-label>
         </ion-item>
