@@ -529,7 +529,8 @@
         "required": [
           "id",
           "name",
-          "price"
+          "price",
+          "quantity"
         ],
         "type": "object",
         "properties": {
@@ -543,6 +544,10 @@
           "price": {
             "type": "number",
             "format": "double"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
           },
           "description": {
             "type": "string",

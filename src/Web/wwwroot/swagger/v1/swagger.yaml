@@ -343,6 +343,7 @@ components:
         - id
         - name
         - price
+        - quantity
       type: object
       properties:
         id:
@@ -353,6 +354,9 @@ components:
         price:
           type: number
           format: double
+        quantity:
+          type: integer
+          format: int32
         description:
           type: string
           nullable: true
