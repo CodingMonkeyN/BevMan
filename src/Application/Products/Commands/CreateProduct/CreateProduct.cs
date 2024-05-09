@@ -9,6 +9,7 @@ public record CreateProductCommand : IRequest<long>
     public required string Name { get; init; }
     public required decimal Price { get; init; }
     public string? Description { get; init; }
+    public int Quantity { get; init; }
     public IFormFile? Image { get; init; }
 }
 
@@ -18,6 +19,7 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
     {
         RuleFor(command => command.Name).NotEmpty().MaximumLength(100);
         RuleFor(command => command.Price).NotNull().GreaterThan(0);
+        RuleFor(command => command.Quantity).NotNull().GreaterThanOrEqualTo(0);
         RuleFor(command => command.Description).MaximumLength(500);
     }
 }
@@ -41,22 +43,6 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        if (request.Image is null)
-        {
-            return entity.Id;
-        }
-
-        Blob blob = new(request.Image);
-        string path = blob.Name;
-        string[] pathTokens = path.Split('/');
-        string publicUrl = await _storageService.UploadFileAsync(blob, "products",
-            path, cancellationToken);
-        StorageObject? storageObject = await _context.StorageObjects
-            .Where(storage => storage.BucketId == "products" && storage.PathTokens.Equals(pathTokens))
-            .FirstOrDefaultAsync(cancellationToken);
-        entity.StorageObject = storageObject;
-        entity.PublicUrl = publicUrl;
-        await _context.SaveChangesAsync(cancellationToken);
 
         return entity.Id;
     }

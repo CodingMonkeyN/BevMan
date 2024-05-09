@@ -109,7 +109,7 @@ paths:
     delete:
       tags:
         - Product
-      operationId: DeleteTodoItem
+      operationId: DeleteProduct
       parameters:
         - name: id
           in: path
@@ -118,6 +118,55 @@ paths:
           schema:
             type: integer
             format: int64
+      responses:
+        '200':
+          description: OK
+  '/api/Product/{id}/image':
+    post:
+      tags:
+        - Product
+      operationId: AddProductImage
+      parameters:
+        - name: id
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AddProductImageCommand'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddProductImageCommand'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - Product
+      operationId: DeleteProductImage
+      parameters:
+        - name: id
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DeleteProductImageCommand'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DeleteProductImageCommand'
+        required: true
       responses:
         '200':
           description: OK
@@ -173,6 +222,20 @@ paths:
           description: OK
 components:
   schemas:
+    AddProductImageCommand:
+      required:
+        - image
+        - productId
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+        image:
+          minLength: 1
+          type: string
+          format: binary
+      additionalProperties: false
     BalanceDto:
       type: object
       properties:
@@ -184,6 +247,7 @@ components:
       required:
         - name
         - price
+        - quantity
       type: object
       properties:
         name:
@@ -199,6 +263,23 @@ components:
           maxLength: 500
           type: string
           nullable: true
+        quantity:
+          minimum: 0
+          type: integer
+          format: int32
+        image:
+          type: string
+          format: binary
+          nullable: true
+      additionalProperties: false
+    DeleteProductImageCommand:
+      required:
+        - productId
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
       additionalProperties: false
     ProductDto:
       required:
@@ -218,6 +299,9 @@ components:
         description:
           type: string
           nullable: true
+        publicUrl:
+          type: string
+          nullable: true
       additionalProperties: false
     UpdateBalanceCommand:
       required:
@@ -234,6 +318,7 @@ components:
         - id
         - name
         - price
+        - quantity
       type: object
       properties:
         id:
@@ -252,6 +337,15 @@ components:
           exclusiveMinimum: true
           type: number
           format: double
+        quantity:
+          type: integer
+          format: int32
+        image:
+          type: string
+          format: binary
+          nullable: true
+        deleteImage:
+          type: boolean
       additionalProperties: false
     UpdateUserRolesCommand:
       required:

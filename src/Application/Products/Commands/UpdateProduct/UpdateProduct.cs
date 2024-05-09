@@ -10,6 +10,7 @@ public record UpdateProductCommand : IRequest<long>
     public required string Name { get; init; }
     public string? Description { get; init; }
     public required decimal Price { get; init; }
+    public required int Quantity { get; init; }
     public IFormFile? Image { get; init; }
     public bool DeleteImage { get; init; }
 }
@@ -27,12 +28,10 @@ public class UpdateProductCommandValidator : AbstractValidator<UpdateProductComm
 public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, long>
 {
     private readonly IApplicationDbContext _context;
-    private readonly IStorageService _storageService;
 
-    public UpdateProductCommandHandler(IApplicationDbContext context, IStorageService storageService)
+    public UpdateProductCommandHandler(IApplicationDbContext context)
     {
         _context = context;
-        _storageService = storageService;
     }
 
     public async Task<long> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
@@ -49,37 +48,6 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        StorageObject? currentStorageObject = entity.StorageObject;
-        if (request.Image is not null)
-        {
-            Blob blob = new(request.Image);
-            string path = blob.Name;
-            string[] pathTokens = path.Split("/");
-            string publicUrl = await _storageService.UploadFileAsync(blob, "products",
-                path, cancellationToken);
-            entity.PublicUrl = publicUrl;
-            StorageObject? storageObject = await _context.StorageObjects
-                .Where(storage => storage.BucketId == "products" && storage.PathTokens.Equals(pathTokens))
-                .FirstOrDefaultAsync(cancellationToken);
-            entity.StorageObject = storageObject;
-            await _context.SaveChangesAsync(cancellationToken);
-        }
-
-        if ((request.Image is not null || request.DeleteImage) && currentStorageObject is not null)
-        {
-            await DeleteFileAsync(currentStorageObject, cancellationToken);
-        }
-
         return entity.Id;
-    }
-
-
-    private async Task DeleteFileAsync(StorageObject storageObject,
-        CancellationToken cancellationToken)
-    {
-        string bucketId = storageObject!.BucketId;
-        string path = string.Join("/", storageObject.PathTokens);
-        await _storageService.DeleteFileAsync(bucketId,
-            path, cancellationToken);
     }
 }
