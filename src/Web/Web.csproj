@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <SpaRoot>Frontend\</SpaRoot>
-    <SpaProxyServerUrl>https://localhost:44447</SpaProxyServerUrl>
+    <SpaProxyServerUrl>https://localhost:4200</SpaProxyServerUrl>
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
     <RootNamespace>BevMan.Web</RootNamespace>
     <AssemblyName>BevMan.Web</AssemblyName>
