@@ -9,7 +9,7 @@ public class Role : EndpointGroupBase
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
-            .MapGet(GetRoles, role: BevMan.Infrastructure.Models.Role.UserManager);
+            .MapGet(GetRoles, role: BevMan.Infrastructure.Models.Role.Admin);
     }
 
     private async Task<string[]> GetRoles(ISender sender)

@@ -81,7 +81,7 @@ public static class DependencyInjection
                 ValidAudiences = validAudiences,
                 ValidIssuer = validIssuer
             };
-            options.TokenValidationParameters.RoleClaimType = "app_roles";
+            options.TokenValidationParameters.RoleClaimType = "user_roles";
         });
 
         services.AddScoped<IStorageService, SupabaseStorageService>();

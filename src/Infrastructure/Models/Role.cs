@@ -2,7 +2,7 @@ namespace BevMan.Infrastructure.Models;
 
 public static class Role
 {
-    public static string Admin => "Admin";
-    public static string User => "User";
-    public static string UserManager => "UserManager";
+    public static string Admin => "admin";
+    public static string User => "user";
+    public static string UserManager => "user_manager";
 }
