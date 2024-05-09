@@ -19,7 +19,6 @@ import {NgIf} from "@angular/common";
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',
-  styleUrls: ['./signup.page.scss'],
   standalone: true,
   imports: [IonButton, IonLabel, IonInput, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, FormsModule, IonBackButton, NgIf],
 })

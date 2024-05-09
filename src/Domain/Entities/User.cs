@@ -5,4 +5,5 @@ public class User
     public ICollection<UserRole> Roles = new List<UserRole>();
     public Guid Id { get; init; }
     public required string Email { get; init; }
+    public string? DisplayName { get; set; }
 }

@@ -17,7 +17,6 @@ import {FormsModule} from "@angular/forms";
 @Component({
   selector: 'app-account',
   templateUrl: './account.page.html',
-  styleUrls: ['./account.page.scss'],
   standalone: true,
   imports: [IonButton, IonLabel, IonInput, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, FormsModule],
 })
