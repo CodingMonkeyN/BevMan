@@ -16,5 +16,8 @@ export interface UpdateProductCommand {
     name: string;
     description?: string | null;
     price: number;
+    quantity: number;
+    image?: Blob | null;
+    deleteImage?: boolean;
 }
 

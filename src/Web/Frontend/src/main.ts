@@ -6,7 +6,7 @@ import {IonicRouteStrategy, provideIonicAngular} from '@ionic/angular/standalone
 import {routes} from './app/app.routes';
 import {AppComponent} from './app/app.component';
 import {environment} from './environments/environment';
-import {HTTP_INTERCEPTORS, HttpClient} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./app/services/auth-interceptor.service";
 import {ApiModule, Configuration} from "./api";
 import {TranslateCompiler, TranslateLoader, TranslateModule} from "@ngx-translate/core";
@@ -42,6 +42,7 @@ bootstrapApplication(AppComponent, {
         useFactory: createTranslateLoader,
         deps: [HttpClient],
       },
-    }))
+    })),
+    importProvidersFrom(HttpClientModule),
   ]
 });

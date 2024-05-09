@@ -15,18 +15,26 @@ export const tabsRoutes: Routes = [
       },
       {
         path: 'products',
-        loadComponent: () =>
-          import('../product/product-page').then((m) => m.ProductPage),
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('../product/product-page').then((m) => m.ProductPage),
+          },
+          {
+            path: ':id',
+            loadComponent: () => import('../product-editor/product-editor.component').then(m => m.ProductEditorComponent)
+          },
+        ],
       },
       {
         path: 'tab3',
         loadComponent: () =>
-          import('./../tab3/tab3.page').then((m) => m.Tab3Page),
+          import('../tab3/tab3.page').then((m) => m.Tab3Page),
       },
       {
         path: 'account',
         loadComponent: () =>
-          import('./../account/account.page').then((m) => m.AccountPage),
+          import('../account/account.page').then((m) => m.AccountPage),
       }
     ],
   }
