@@ -1,5 +1,4 @@
 using BevMan.Application.User.Commands.DeleteUser;
-using BevMan.Application.User.Commands.UpdateUser;
 using BevMan.Application.User.Queries;
 using BevMan.Application.User.Queries.GetUser;
 using BevMan.Application.User.Queries.GetUsers;
@@ -15,8 +14,7 @@ public class User : EndpointGroupBase
         app.MapGroup(this)
             .MapGet(GetUsers, role: BevMan.Infrastructure.Models.Role.Admin)
             .MapGet(GetUser, "{id}", BevMan.Infrastructure.Models.Role.Admin)
-            .MapDelete(DeleteUser, "{id}")
-            .MapPut(UpdateUser, "{id}");
+            .MapDelete(DeleteUser, "{id}");
     }
 
     private async Task<IEnumerable<UserDto>> GetUsers(ISender sender)
@@ -27,12 +25,6 @@ public class User : EndpointGroupBase
     private async Task<UserDto> GetUser(ISender sender, Guid id)
     {
         return await sender.Send(new GetUserQuery(id));
-    }
-
-    private async Task<IResult> UpdateUser(ISender sender, Guid id, UpdateUserCommand command)
-    {
-        await sender.Send(command);
-        return Results.NoContent();
     }
 
     private async Task<IResult> DeleteUser(ISender sender, Guid id)
