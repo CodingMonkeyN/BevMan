@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core'
 import {LoadingController, ToastController} from '@ionic/angular'
 import {AuthChangeEvent, createClient, Session, SupabaseClient} from '@supabase/supabase-js'
-import {environment} from '../environments/environment'
+import {environment} from '../../environments/environment'
 
 export interface Profile {
   username: string

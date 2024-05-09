@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {IonApp, IonRouterOutlet} from '@ionic/angular/standalone';
-import { Router } from '@angular/router'
-import { SupabaseService } from './supabase.service'
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-root',
@@ -11,12 +10,8 @@ import { SupabaseService } from './supabase.service'
 })
 export class AppComponent {
   constructor(
-    private supabase: SupabaseService,
-    private router: Router
+    translate: TranslateService,
   ) {
-    this.supabase.authChanges((_, session) => {
-      console.log(session)
-
-    })
+      translate.use('de');
   }
 }

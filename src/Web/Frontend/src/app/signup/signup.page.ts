@@ -1,5 +1,5 @@
 import {Component} from '@angular/core'
-import {SupabaseService} from '../supabase.service'
+import {SupabaseService} from '../services/supabase.service'
 import {
   IonBackButton,
   IonButton,

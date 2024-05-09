@@ -9,7 +9,6 @@ import {
   IonTitle,
   IonToolbar
 } from '@ionic/angular/standalone';
-import {ExploreContainerComponent} from '../explore-container/explore-container.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
@@ -17,7 +16,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent, FormsModule, IonButton, IonInput, IonItem, IonLabel, ReactiveFormsModule],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, FormsModule, IonButton, IonInput, IonItem, IonLabel, ReactiveFormsModule],
 })
 export class Tab1Page {
   constructor() {

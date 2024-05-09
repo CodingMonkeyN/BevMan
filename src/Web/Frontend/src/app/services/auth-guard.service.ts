@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
-import { Router, UrlTree} from "@angular/router";
-import {SupabaseService} from "../supabase.service";
+import {Router, UrlTree} from "@angular/router";
+import {SupabaseService} from "./supabase.service";
 
 export const authGuard = () : Promise<boolean | UrlTree> => inject(AuthGuardService).canActivate()
 @Injectable({
