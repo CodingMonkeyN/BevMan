@@ -26,15 +26,16 @@
       <ion-input label="{{ 'PRODUCTS.EDITOR.DESCRIPTION_LABEL' | translate}}" label-placement="stacked"
                  [formControl]="form.controls.description"/>
     </ion-item>
-    <ion-button size="full" (click)="file.click()">{{ 'PRODUCTS.EDITOR.UPLOAD_IMAGE_BUTTON' | translate }}</ion-button>
-    <input #file type="file" style="display: none"
-           (change)="onFileSelected(file)"/>
 
-    <div class="ion-text-center">
+    <div class="ion-text-center"
+         style="display: flex; flex-direction: column; gap: 1rem; padding: 1rem; margin-top: auto;">
+      <ion-button size="full" (click)="file.click()">{{ 'PRODUCTS.EDITOR.UPLOAD_IMAGE_BUTTON' | translate }}
+      </ion-button>
+      <input #file type="file" style="display: none"
+             (change)="onFileSelected(file)"/>
       <ion-button (click)="save()" type="submit" size="full">
         {{ 'PRODUCTS.EDITOR.SAVE_BUTTON' | translate }}
       </ion-button>
-      <br>
       @if (id()) {
         <ion-button (click)="delete()" size="full" color="danger">
           {{ 'PRODUCTS.EDITOR.DELETE_BUTTON' | translate }}

@@ -20,7 +20,8 @@
       "QUANTITY_LABEL": "Anzahl auf Lager",
       "DESCRIPTION_LABEL": "Beschreibung",
       "SAVE_BUTTON": "Produkt speichern",
-      "DELETE_BUTTON": "Produkt löschen"
+      "DELETE_BUTTON": "Produkt löschen",
+      "UPLOAD_IMAGE_BUTTON": "Bild hochladen"
     }
   },
   "USER": {

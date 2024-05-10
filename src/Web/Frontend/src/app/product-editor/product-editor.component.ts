@@ -4,6 +4,7 @@ import {
   IonButton,
   IonButtons,
   IonContent,
+  IonFab,
   IonHeader,
   IonInput,
   IonItem,
@@ -72,7 +73,8 @@ interface ProductFormValue {
     FormsModule,
     IonInput,
     NgIf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    IonFab
   ]
 })
 export class ProductEditorComponent {
