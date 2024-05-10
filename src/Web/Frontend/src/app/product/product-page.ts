@@ -7,6 +7,8 @@ import {
   IonCardSubtitle,
   IonCardTitle,
   IonContent,
+  IonFab,
+  IonFabButton,
   IonHeader,
   IonIcon,
   IonItem,
@@ -40,7 +42,7 @@ import {UserRole} from "../enums/user-role.enum";
     IonCardTitle, IonCardSubtitle, IonCardContent,
     IonThumbnail, IonPopover, IonItemSliding,
     IonItemOption, IonItemOptions, IonAvatar,
-    IonRouterLink, RouterLink, IonText, IonNote, IonIcon]
+    IonRouterLink, RouterLink, IonText, IonNote, IonIcon, IonFab, IonFabButton]
 })
 export class ProductPage {
   protected readonly products: Signal<ProductDto[] | undefined>
@@ -64,7 +66,7 @@ export class ProductPage {
     console.log(`Buying ${product.name}`);
   }
 
-  protected openEditor(product: ProductDto) {
-    this.router.navigate([['tabs', 'products', 'product-editor']])
+  protected addProduct() {
+    this.router.navigate(['tabs', 'products', 'create']);
   }
 }

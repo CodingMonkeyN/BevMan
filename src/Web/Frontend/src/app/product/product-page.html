@@ -13,7 +13,6 @@
   <ion-list>
     @for (product of products(); track product.id) {
       <ion-item-sliding>
-
         <ion-item [routerLink]="getRouterLink(product.id)">
           <ion-thumbnail slot="start">
             @if (product.publicUrl) {
@@ -38,4 +37,9 @@
       </ion-item-sliding>
     }
   </ion-list>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="addProduct()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
