@@ -38,7 +38,8 @@
   },
   "ACCOUNT": {
     "TITLE": "Account",
-    "EMAIL_LABEL": "Email",
-    "LOGOUT_BUTTON": "Abmelden"
+    "BALANCE": "Account - {amount} ({amountInApproval}) €",
+    "LOGOUT_BUTTON": "Abmelden",
+    "DELETE": "Account löschen"
   }
 }

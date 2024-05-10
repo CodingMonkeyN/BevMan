@@ -9,6 +9,11 @@ export const tabsRoutes: Routes = [
     canActivate: [authGuard],
     children: [
       {
+        path: '',
+        redirectTo: 'products',
+        pathMatch: 'full',
+      },
+      {
         path: 'products',
         children: [
           {
@@ -38,8 +43,17 @@ export const tabsRoutes: Routes = [
       },
       {
         path: 'account',
-        loadComponent: () =>
-          import('../account/account.page').then((m) => m.AccountPage),
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('../account/account.page').then((m) => m.AccountPage),
+          },
+          {
+            path: 'add-balance',
+            loadComponent: () => import('../account/add-balance/add-balance.component').then((m) => m.AddBalanceComponent)
+          }
+        ],
       }
     ],
   }

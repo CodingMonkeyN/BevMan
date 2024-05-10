@@ -15,24 +15,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BalanceDto'
-    post:
-      tags:
-        - Balance
-      operationId: UpdateBalance
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateBalanceCommand'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: integer
-                format: int64
   /api/BalanceRequest:
     get:
       tags:
@@ -44,7 +26,34 @@ paths:
     post:
       tags:
         - BalanceRequest
+      operationId: CreateBalanceRequest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBalanceRequestCommand'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+  '/api/BalanceRequest/{id}':
+    post:
+      tags:
+        - BalanceRequest
       operationId: Approve
+      parameters:
+        - name: id
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int64
       requestBody:
         content:
           application/json:
@@ -334,6 +343,19 @@ components:
         amount:
           type: number
           format: double
+        amountInApproval:
+          type: number
+          format: double
+      additionalProperties: false
+    CreateBalanceRequestCommand:
+      required:
+        - amount
+      type: object
+      properties:
+        amount:
+          minimum: 0
+          type: number
+          format: double
       additionalProperties: false
     CreateProductCommand:
       required:
@@ -398,16 +420,6 @@ components:
         publicUrl:
           type: string
           nullable: true
-      additionalProperties: false
-    UpdateBalanceCommand:
-      required:
-        - amount
-      type: object
-      properties:
-        amount:
-          minimum: 0
-          type: number
-          format: double
       additionalProperties: false
     UpdateProductCommand:
       required:

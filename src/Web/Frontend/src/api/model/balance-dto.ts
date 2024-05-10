@@ -13,5 +13,6 @@
 
 export interface BalanceDto { 
     amount?: number;
+    amountInApproval?: number;
 }
 

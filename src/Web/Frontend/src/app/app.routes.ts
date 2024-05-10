@@ -5,6 +5,11 @@ import {tabsRoutes} from "./tabs/tabs.routes";
 
 export const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'tabs',
+    pathMatch: 'full',
+  },
+  {
     path: 'login',
     loadComponent: () => import('./login/login.page').then(m => m.LoginPage)
   },

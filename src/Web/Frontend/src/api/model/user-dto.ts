@@ -15,6 +15,5 @@ export interface UserDto {
     id?: string;
     email: string;
     roles: Array<string>;
-    displayName?: string | null;
 }
 

@@ -1,19 +1,22 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ 'ACCOUNT.TITLE' | translate }}</ion-title>
+    <ion-title>{{ 'ACCOUNT.BALANCE' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form>
-    <ion-item>
-      <ion-input label="{{ 'ACCOUNT.EMAIL_LABEL' | translate }}" label-placement="stacked" type="email" name="email"
-                 [(ngModel)]="email"
-                 readonly></ion-input>
-    </ion-item>
-  </form>
-
-  <div class="ion-text-center">
-    <ion-button fill="clear" (click)="signOut()">{{ 'ACCOUNT.LOGOUT_BUTTON' | translate }}</ion-button>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{ 'ACCOUNT.BALANCE' | translate : balance() }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="flex flex-col">
+    <ion-button color="danger" size="full" translate>ACCOUNT.DELETE</ion-button>
+    <ion-button size="full" (click)="signOut()">{{ 'ACCOUNT.LOGOUT_BUTTON' | translate }}</ion-button>
   </div>
+  <ion-fab slot="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

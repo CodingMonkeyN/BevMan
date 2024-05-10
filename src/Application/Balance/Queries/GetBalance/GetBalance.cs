@@ -19,8 +19,18 @@ public class GetBalanceQueryHandler : IRequestHandler<GetBalanceQuery, BalanceDt
 
     public async Task<BalanceDto> Handle(GetBalanceQuery request, CancellationToken cancellationToken)
     {
+        Guid userId = Guid.Parse(_user.Id!);
         Domain.Entities.Balance? balance = await _context.Balances
-            .FirstOrDefaultAsync(balance => balance.UserId == Guid.Parse(_user.Id!), cancellationToken);
-        return balance is null ? new BalanceDto { Amount = 0 } : _mapper.Map<BalanceDto>(balance);
+            .FirstOrDefaultAsync(balance => balance.UserId == userId, cancellationToken);
+        List<Domain.Entities.BalanceRequest> balanceRequest = await _context.BalanceRequests
+            .Where(balanceRequests => balanceRequests.UserId == userId)
+            .AsNoTracking()
+            .ToListAsync(cancellationToken);
+        decimal amountInApproval = balanceRequest.Select(x => x.Amount).Sum();
+        BalanceDto? mapped = balance is null
+            ? new BalanceDto { Amount = 0, AmountInApproval = amountInApproval }
+            : _mapper.Map<BalanceDto>(balance);
+        mapped.AmountInApproval = amountInApproval;
+        return mapped;
     }
 }

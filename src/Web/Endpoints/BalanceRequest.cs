@@ -1,4 +1,5 @@
 using BevMan.Application.BalanceRequest.Commands.ApproveBalanceUpdate;
+using BevMan.Application.BalanceRequest.Commands.CreateBalanceRequest;
 using BevMan.Application.BalanceRequest.Queries.GetBalanceRequests;
 using BevMan.Web.Infrastructure;
 using MediatR;
@@ -12,7 +13,8 @@ public class BalanceRequest : EndpointGroupBase
     {
         app.MapGroup(this)
             .MapGet(GetBalanceRequests)
-            .MapPost(Approve);
+            .MapPost(Approve, "{id}")
+            .MapPost(CreateBalanceRequest);
     }
 
     private Task GetBalanceRequests(ISender sender)
@@ -20,8 +22,19 @@ public class BalanceRequest : EndpointGroupBase
         return sender.Send(new GetBalanceRequestsQuery());
     }
 
-    private Task Approve(ISender sender, [FromBody] ApproveBalanceUpdateCommand command)
+    private Task<long> CreateBalanceRequest(ISender sender, [FromBody] CreateBalanceRequestCommand command)
     {
         return sender.Send(command);
+    }
+
+    private async Task<IResult> Approve(ISender sender, long id, [FromBody] ApproveBalanceUpdateCommand command)
+    {
+        if (id != command.BalanceRequestId)
+        {
+            return Results.BadRequest();
+        }
+
+        await sender.Send(command);
+        return Results.NoContent();
     }
 }

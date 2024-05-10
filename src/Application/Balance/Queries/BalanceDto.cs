@@ -5,4 +5,5 @@ namespace BevMan.Application.Balance.Queries;
 public class BalanceDto : IMapFrom<Domain.Entities.Balance>
 {
     public decimal Amount { get; init; }
+    public decimal AmountInApproval { get; set; }
 }

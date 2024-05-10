@@ -10,6 +10,7 @@ import {
   IonItemSliding,
   IonLabel,
   IonList,
+  IonRouterLink,
   IonThumbnail,
   IonTitle,
   IonToolbar,
@@ -23,7 +24,7 @@ import {RouterLink} from "@angular/router";
   selector: 'app-user',
   templateUrl: 'user-page.html',
   standalone: true,
-  imports: [IonThumbnail, IonAvatar, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonLabel, IonList, IonItem, IonItemSliding, IonItemOptions, IonItemOption, TranslateModule, RouterLink],
+  imports: [IonThumbnail, IonAvatar, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonLabel, IonList, IonItem, IonItemSliding, IonItemOptions, IonItemOption, TranslateModule, IonRouterLink, RouterLink],
 })
 export class UserPage {
   protected readonly users = toSignal(inject(UserService).getUsers());

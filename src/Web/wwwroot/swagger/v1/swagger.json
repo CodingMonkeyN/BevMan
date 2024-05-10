@@ -23,17 +23,30 @@
             }
           }
         }
+      }
+    },
+    "/api/BalanceRequest": {
+      "get": {
+        "tags": [
+          "BalanceRequest"
+        ],
+        "operationId": "GetBalanceRequests",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       },
       "post": {
         "tags": [
-          "Balance"
+          "BalanceRequest"
         ],
-        "operationId": "UpdateBalance",
+        "operationId": "CreateBalanceRequest",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateBalanceCommand"
+                "$ref": "#/components/schemas/CreateBalanceRequestCommand"
               }
             }
           },
@@ -54,23 +67,24 @@
         }
       }
     },
-    "/api/BalanceRequest": {
-      "get": {
-        "tags": [
-          "BalanceRequest"
-        ],
-        "operationId": "GetBalanceRequests",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
+    "/api/BalanceRequest/{id}": {
       "post": {
         "tags": [
           "BalanceRequest"
         ],
         "operationId": "Approve",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -526,6 +540,24 @@
           "amount": {
             "type": "number",
             "format": "double"
+          },
+          "amountInApproval": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateBalanceRequestCommand": {
+        "required": [
+          "amount"
+        ],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "minimum": 0,
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false
@@ -611,20 +643,6 @@
           "publicUrl": {
             "type": "string",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "UpdateBalanceCommand": {
-        "required": [
-          "amount"
-        ],
-        "type": "object",
-        "properties": {
-          "amount": {
-            "minimum": 0,
-            "type": "number",
-            "format": "double"
           }
         },
         "additionalProperties": false
