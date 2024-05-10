@@ -26,6 +26,9 @@
       <ion-input label="{{ 'PRODUCTS.EDITOR.DESCRIPTION_LABEL' | translate}}" label-placement="stacked"
                  [formControl]="form.controls.description"/>
     </ion-item>
+    <ion-button size="full" (click)="file.click()">{{ 'PRODUCTS.EDITOR.UPLOAD_IMAGE_BUTTON' | translate }}</ion-button>
+    <input #file type="file" style="display: none"
+           (change)="onFileSelected(file)"/>
 
     <div class="ion-text-center">
       <ion-button (click)="save()" type="submit" size="full">

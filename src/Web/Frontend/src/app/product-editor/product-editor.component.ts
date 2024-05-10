@@ -32,6 +32,7 @@ import {ProductService} from "../../api";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ActivatedRoute, Router} from "@angular/router";
 import {catchError, filter, firstValueFrom, of, switchMap, tap} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 interface ProductForm {
   name: FormControl<string>;
@@ -79,7 +80,8 @@ export class ProductEditorComponent {
   protected readonly form: FormGroup<ProductForm>
   protected id = signal<number | undefined>(undefined)
 
-  constructor(private readonly router: Router,
+  constructor(private http: HttpClient,
+              private readonly router: Router,
               private readonly product: ProductService,
               private readonly destroyRef: DestroyRef,
               private readonly route: ActivatedRoute,
@@ -141,5 +143,15 @@ export class ProductEditorComponent {
         this.router.navigate(['..'], {relativeTo: this.route});
       }
     });
+  }
+
+  protected onFileSelected(input: HTMLInputElement) {
+    if (!input.files) {
+      return
+    }
+    // const formData = new FormData();
+    // formData.append("file", input.files[0]);
+    // formData.append("productId", this.id()!.toString());
+    this.product.addProductImage(this.id()!, this.id()!, input.files[0]).subscribe();
   }
 }
