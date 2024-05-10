@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ 'ACCOUNT.BALANCE' | translate }}</ion-title>
+    <ion-title>{{ 'ACCOUNT.BALANCE' | translate : balance() }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,7 +15,7 @@
     <ion-button size="full" (click)="signOut()">{{ 'ACCOUNT.LOGOUT_BUTTON' | translate }}</ion-button>
   </div>
   <ion-fab slot="fixed" horizontal="end" vertical="bottom">
-    <ion-fab-button>
+    <ion-fab-button routerLink="add-balance">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

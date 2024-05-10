@@ -1,5 +1,5 @@
 import {Component, Signal} from '@angular/core'
-import {Router} from '@angular/router'
+import {Router, RouterLink} from '@angular/router'
 import {SupabaseService} from '../services/supabase.service'
 import {
   IonButton,
@@ -12,6 +12,7 @@ import {
   IonItem,
   IonLabel,
   IonList,
+  IonRouterLink,
   IonText,
   IonTitle,
   IonToolbar
@@ -27,7 +28,7 @@ import {add} from "ionicons/icons";
   selector: 'app-account',
   templateUrl: './account.page.html',
   standalone: true,
-  imports: [IonButton, IonLabel, IonInput, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, FormsModule, TranslateModule, IonText, IonFabButton, IonIcon, IonFab],
+  imports: [IonButton, IonLabel, IonInput, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, FormsModule, TranslateModule, IonText, IonFabButton, IonIcon, IonFab, IonRouterLink, RouterLink],
 })
 export class AccountPage {
   balance: Signal<BalanceDto | undefined>;
