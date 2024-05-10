@@ -27,14 +27,20 @@
                  [formControl]="form.controls.description"/>
     </ion-item>
 
-    <div class="ion-text-center">
+    <div class="ion-text-center"
+         style="display: flex; flex-direction: column; gap: 1rem; padding: 1rem; margin-top: auto;">
+      <ion-button size="full" (click)="file.click()">{{ 'PRODUCTS.EDITOR.UPLOAD_IMAGE_BUTTON' | translate }}
+      </ion-button>
+      <input #file type="file" style="display: none"
+             (change)="onFileSelected(file)"/>
       <ion-button (click)="save()" type="submit" size="full">
         {{ 'PRODUCTS.EDITOR.SAVE_BUTTON' | translate }}
       </ion-button>
-      <br>
-      <ion-button (click)="delete()" size="full" color="danger">
-        {{ 'PRODUCTS.EDITOR.DELETE_BUTTON' | translate }}
-      </ion-button>
+      @if (id()) {
+        <ion-button (click)="delete()" size="full" color="danger">
+          {{ 'PRODUCTS.EDITOR.DELETE_BUTTON' | translate }}
+        </ion-button>
+      }
     </div>
   </form>
 </ion-content>

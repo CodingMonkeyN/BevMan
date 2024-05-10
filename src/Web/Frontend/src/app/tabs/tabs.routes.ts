@@ -21,6 +21,10 @@ export const tabsRoutes: Routes = [
             loadComponent: () => import('../product/product-page').then((m) => m.ProductPage),
           },
           {
+            path: 'create',
+            loadComponent: () => import('../product-editor/product-editor.component').then(m => m.ProductEditorComponent),
+          },
+          {
             path: ':id',
             loadComponent: () => import('../product-editor/product-editor.component').then(m => m.ProductEditorComponent)
           },

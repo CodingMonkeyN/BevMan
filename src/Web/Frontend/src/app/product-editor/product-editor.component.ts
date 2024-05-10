@@ -1,9 +1,10 @@
-import {Component, signal} from '@angular/core';
+import {Component, DestroyRef, signal} from '@angular/core';
 import {
   IonBackButton,
   IonButton,
   IonButtons,
   IonContent,
+  IonFab,
   IonHeader,
   IonInput,
   IonItem,
@@ -31,7 +32,8 @@ import {NgIf} from "@angular/common";
 import {ProductService} from "../../api";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ActivatedRoute, Router} from "@angular/router";
-import {firstValueFrom, switchMap, tap} from "rxjs";
+import {catchError, filter, firstValueFrom, of, switchMap, tap} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 interface ProductForm {
   name: FormControl<string>;
@@ -71,18 +73,22 @@ interface ProductFormValue {
     FormsModule,
     IonInput,
     NgIf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    IonFab
   ]
 })
 export class ProductEditorComponent {
   protected readonly root = ProductPage
   protected readonly form: FormGroup<ProductForm>
-  private id = signal<number | undefined>(undefined)
+  protected id = signal<number | undefined>(undefined)
 
-  constructor(private readonly router: Router,
+  constructor(private http: HttpClient,
+              private readonly router: Router,
               private readonly product: ProductService,
+              private readonly destroyRef: DestroyRef,
+              private readonly route: ActivatedRoute,
               formBuilder: NonNullableFormBuilder,
-              route: ActivatedRoute) {
+  ) {
     this.form = formBuilder.group<ProductForm>({
       name: new FormControl({value: "", disabled: false}, {nonNullable: true, validators: [Validators.required]}),
       price: new FormControl({value: 0, disabled: false}, {nonNullable: true, validators: [Validators.required]}),
@@ -95,6 +101,7 @@ export class ProductEditorComponent {
 
     route.params.pipe(
       takeUntilDestroyed(),
+      filter(({id}) => !!id),
       tap(({id}) => this.id.set(Number(id))),
       switchMap(({id}) => this.product.getProduct(Number(id))),
     ).subscribe(product => this.form.patchValue(product as ProductFormValue))
@@ -102,25 +109,51 @@ export class ProductEditorComponent {
 
   async save(): Promise<void> {
     if (!this.id()) {
+      const id = await firstValueFrom(this.product.createProduct(this.form.getRawValue()))
+      if (!id) {
+        return
+      }
+      this.router.navigate(['..'], {relativeTo: this.route});
       return
     }
-    try {
-      await firstValueFrom(this.product.updateProduct(this.id()!, {...this.form.getRawValue(), id: this.id()!}))
-      await this.router.navigate(['tabs', 'products']);
-      console.log("Product saved successfully.");
-    } catch (error) {
-      console.error(error);
-    }
+    this.product.updateProduct(this.id()!, {
+      ...this.form.getRawValue(),
+      id: this.id()!
+    }).pipe(takeUntilDestroyed(this.destroyRef), catchError(err => {
+        console.error(err);
+        return of(false);
+      }),
+    ).subscribe(falseOrNull => {
+      if (falseOrNull === null) {
+        this.router.navigate(['..'], {relativeTo: this.route});
+      }
+    });
   }
 
   delete(): void {
     if (!this.id()) {
       return
     }
-    try {
 
-    } catch (error) {
-      console.error(error);
+    const name: string = this.form.value.name!
+    this.product.deleteProduct(this.id()!).pipe(takeUntilDestroyed(this.destroyRef), catchError(err => {
+        console.error(err);
+        return of(false);
+      }),
+    ).subscribe(falseOrNull => {
+      if (falseOrNull === null) {
+        this.router.navigate(['..'], {relativeTo: this.route});
+      }
+    });
+  }
+
+  protected onFileSelected(input: HTMLInputElement) {
+    if (!input.files) {
+      return
     }
+    // const formData = new FormData();
+    // formData.append("file", input.files[0]);
+    // formData.append("productId", this.id()!.toString());
+    this.product.addProductImage(this.id()!, this.id()!, input.files[0]).subscribe();
   }
 }
