@@ -9,6 +9,7 @@
     "start:windows": "ng serve --port 4200 --ssl --ssl-cert \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem\" --ssl-key \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.key\"",
     "start:default": "ng serve --port 4200 --ssl --ssl-cert \"$HOME/.aspnet/https/${npm_package_name}.pem\" --ssl-key \"$HOME/.aspnet/https/${npm_package_name}.key\"",
     "ios": "npx cap run ios",
+    "build:ios": "npm run build && npx cap sync ios && npx cap open ios",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
