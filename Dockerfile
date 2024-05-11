@@ -12,4 +12,5 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /src/Web
 COPY --from=build-env /src/Web/out .
+EXPOSE 8080
 ENTRYPOINT ["dotnet", "BevMan.Web.dll"]
