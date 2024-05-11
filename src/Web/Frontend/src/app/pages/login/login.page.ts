@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { SupabaseService } from '../../services/supabase.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -41,26 +42,22 @@ export class LoginPage {
   constructor(
     private readonly router: Router,
     private readonly supabase: SupabaseService,
+    private readonly notification: NotificationService,
   ) {}
 
-  redirectToSignUp(): void {
-    this.router.navigate(['signup']);
+  async redirectToSignUp(): Promise<void> {
+    await this.router.navigate(['signup']);
   }
 
-  async handleLogin(event: any) {
-    event.preventDefault();
-    const loader = await this.supabase.createLoader();
-    await loader.present();
+  async handleLogin(): Promise<void> {
     try {
       const { error } = await this.supabase.signInEmailPassword(this.email, this.password);
       if (error) {
         throw error;
       }
-      await loader.dismiss();
       await this.router.navigate(['tabs']);
     } catch (error: any) {
-      await loader.dismiss();
-      await this.supabase.createNotice(error.error_description || error.message);
+      await this.notification.showError('LOGIN.ERRORS.INVALID_CREDENTIALS');
     }
   }
 }

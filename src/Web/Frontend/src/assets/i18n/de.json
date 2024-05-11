@@ -5,7 +5,10 @@
     "EMAIL_LABEL": "Email",
     "PASSWORD_LABEL": "Passwort",
     "LOGIN_BUTTON": "Anmelden",
-    "SIGNUP_BUTTON": "Regestrieren"
+    "SIGNUP_BUTTON": "Regestrieren",
+    "ERROR": {
+      "INVALID_CREDENTIALS": "Ungültige Anmeldedaten"
+    }
   },
   "GLOBAL": {
     "SAVE": "Speichern",
