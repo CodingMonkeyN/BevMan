@@ -9,11 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { BalanceDto } from './balance-dto';
 
 
 export interface UserDto { 
     id?: string;
     email: string;
     roles: Array<string>;
+    balance?: BalanceDto;
 }
 

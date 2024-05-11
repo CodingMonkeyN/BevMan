@@ -1,0 +1,22 @@
+<ion-nav [root]="root"></ion-nav>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title translate>USER.TITLE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form" class="flex h-full flex-col gap-4">
+    <ion-item>
+      <ion-select [formControl]="form.controls.roles" [label]="'USER.DETAILS.ROLES' | translate" [multiple]="true">
+        @for (role of roles(); track role) {
+          <ion-select-option [value]="role">{{ "USER.ROLES." + (role | snakecase) | translate }}</ion-select-option>
+        }
+      </ion-select>
+    </ion-item>
+    <ion-button (click)="save()" size="full" translate>GLOBAL.SAVE</ion-button>
+  </form>
+</ion-content>

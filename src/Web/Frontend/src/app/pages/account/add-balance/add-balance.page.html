@@ -1,0 +1,19 @@
+<ion-nav [root]="root"></ion-nav>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title translate>ADD_BALANCE.TITLE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form" class="flex h-full flex-col gap-4">
+    <ion-item>
+      <ion-label position="floating" translate>ADD_BALANCE.AMOUNT</ion-label>
+      <ion-input type="number" [formControl]="form.controls.amount"></ion-input>
+    </ion-item>
+    <ion-button [disabled]="!form.valid" (click)="save()" size="full" translate>GLOBAL.SAVE</ion-button>
+  </form>
+</ion-content>

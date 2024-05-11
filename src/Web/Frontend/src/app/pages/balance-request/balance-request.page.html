@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'BALANCE_REQUEST.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{ 'BALANCE_REQUEST.TITLE' | translate }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+    <ion-refresher (ionRefresh)="update($event)" slot="fixed">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    @if (balanceRequests().isLoading) { @for (item of Array(5); track item) {
+    <ion-item>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text [animated]="true" style="width: 80%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text [animated]="true" style="width: 60%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text [animated]="true" style="width: 30%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    } } @if (balanceRequests().data; as balanceRequests) { @for (balanceRequest of balanceRequests; track
+    balanceRequest.id) {
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label> {{ balanceRequest.user.email }}</ion-label>
+        <ion-label slot="end" style="font-size: large">{{ balanceRequest.amount }} €</ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option (click)="handle(balanceRequest.id, false)" color="danger"
+          >{{ 'BALANCE_REQUEST.REJECT' | translate }}
+        </ion-item-option>
+        <ion-item-option (click)="handle(balanceRequest.id, true)" color="success"
+          >{{ 'BALANCE_REQUEST.APPROVE' | translate }}
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    } @empty {
+    <ion-item>
+      <ion-label>
+        <h2>{{ 'BALANCE_REQUEST.NO_REQUESTS' | translate }}</h2>
+      </ion-label>
+    </ion-item>
+    } }
+  </ion-list>
+</ion-content>

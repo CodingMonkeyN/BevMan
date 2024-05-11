@@ -35,9 +35,16 @@ public class ApproveBalanceUpdateCommandHandler : IRequestHandler<ApproveBalance
 
         if (request.IsApproved)
         {
-            Domain.Entities.Balance userBalance =
-                await _context.Balances.FirstAsync(balance => balance.UserId == balanceRequest.UserId,
+            Domain.Entities.Balance? userBalance =
+                await _context.Balances.FirstOrDefaultAsync(balance => balance.UserId == balanceRequest.UserId,
                     cancellationToken);
+            if (userBalance is null)
+            {
+                userBalance = _context.Balances.Add(new Domain.Entities.Balance { UserId = balanceRequest.UserId })
+                    .Entity;
+                userBalance.UserId = balanceRequest.UserId;
+            }
+
             userBalance.Amount += balanceRequest.Amount;
         }
 

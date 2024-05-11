@@ -1,3 +1,4 @@
+using BevMan.Application.Balance.Queries;
 using BevMan.Application.Common.Mappings;
 
 namespace BevMan.Application.User.Queries;
@@ -7,6 +8,7 @@ public class UserDto : IMapFrom<Domain.Entities.User>
     public Guid Id { get; init; }
     public required string Email { get; init; }
     public required string[] Roles { get; init; }
+    public BalanceDto? Balance { get; init; }
 
     public void Mapping(Profile profile)
     {

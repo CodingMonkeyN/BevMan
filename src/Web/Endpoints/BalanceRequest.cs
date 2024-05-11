@@ -1,5 +1,6 @@
 using BevMan.Application.BalanceRequest.Commands.ApproveBalanceUpdate;
 using BevMan.Application.BalanceRequest.Commands.CreateBalanceRequest;
+using BevMan.Application.BalanceRequest.Queries;
 using BevMan.Application.BalanceRequest.Queries.GetBalanceRequests;
 using BevMan.Web.Infrastructure;
 using MediatR;
@@ -17,7 +18,7 @@ public class BalanceRequest : EndpointGroupBase
             .MapPost(CreateBalanceRequest);
     }
 
-    private Task GetBalanceRequests(ISender sender)
+    private Task<IEnumerable<BalanceRequestDto>> GetBalanceRequests(ISender sender)
     {
         return sender.Send(new GetBalanceRequestsQuery());
     }

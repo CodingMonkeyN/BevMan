@@ -8,7 +8,11 @@
     "SIGNUP_BUTTON": "Regestrieren"
   },
   "GLOBAL": {
-    "SAVE": "Speichern"
+    "SAVE": "Speichern",
+    "CANCEL": "Abbrechen",
+    "ERROR": {
+      "QUERY": "Fehler beim Laden der Daten"
+    }
   },
   "PRODUCTS": {
     "TITLE": "Getränke",
@@ -41,5 +45,16 @@
     "BALANCE": "Account - {amount} ({amountInApproval}) €",
     "LOGOUT_BUTTON": "Abmelden",
     "DELETE": "Account löschen"
+  },
+  "ADD_BALANCE": {
+    "TITLE": "Guthaben hinzufügen",
+    "AMOUNT": "Betrag in Euro",
+    "ERROR": "Fehler beim Hinzufügen des Guthabens"
+  },
+  "BALANCE_REQUEST": {
+    "TITLE": "Guthaben Anfragen",
+    "APPROVE": "Bestätigen",
+    "REJECT": "Ablehnen",
+    "NO_REQUESTS": "Es liegen keine Anfragen vor"
   }
 }

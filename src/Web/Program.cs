@@ -31,7 +31,6 @@ app.UseHttpsRedirection();
 app.UseCors(config => config.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 app.UseExceptionHandler(options => { });
-
 app.MapEndpoints();
 
 app.Run();

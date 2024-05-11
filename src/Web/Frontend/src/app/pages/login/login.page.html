@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'LOGIN.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding">
+    <h1>BevMan</h1>
+    <p>{{ 'LOGIN.TEXT' | translate }}</p>
+  </div>
+  <ion-list inset="true">
+    <form (ngSubmit)="handleLogin($event)">
+      <ion-item>
+        <ion-input
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          autocomplete
+          label="{{ 'LOGIN.EMAIL_LABEL' | translate }}"
+          label-placement="floating" />
+      </ion-item>
+      <ion-item>
+        <ion-input
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          autocomplete
+          label="{{ 'LOGIN.PASSWORD_LABEL' | translate }}"
+          label-placement="floating" />
+      </ion-item>
+      <div class="ion-text-center">
+        <ion-button type="submit" fill="clear">{{ 'LOGIN.LOGIN_BUTTON' | translate }}</ion-button>
+      </div>
+    </form>
+    <div class="ion-text-center">
+      <ion-button (click)="redirectToSignUp()" fill="clear">{{ 'LOGIN.SIGNUP_BUTTON' | translate }}</ion-button>
+    </div>
+  </ion-list>
+</ion-content>

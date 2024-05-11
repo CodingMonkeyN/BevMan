@@ -18,6 +18,8 @@ public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, IEnumer
 
     public async Task<IEnumerable<ProductDto>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
     {
-        return await _context.Products.ProjectToListAsync<ProductDto>(_mapper.ConfigurationProvider);
+        return await _context.Products
+            .OrderBy(product => product.Name)
+            .ProjectToListAsync<ProductDto>(_mapper.ConfigurationProvider);
     }
 }

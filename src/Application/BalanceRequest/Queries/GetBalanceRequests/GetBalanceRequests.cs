@@ -22,7 +22,7 @@ public class GetBalanceRequestsQueryHandler : IRequestHandler<GetBalanceRequests
         CancellationToken cancellationToken)
     {
         return await _context.BalanceRequests
-            .Where(balanceRequest => Guid.Parse(_currentUser.Id!) == balanceRequest.UserId)
+            .Where(balanceRequest => Guid.Parse(_currentUser.Id!) != balanceRequest.UserId)
             .ProjectToListAsync<BalanceRequestDto>(_mapper.ConfigurationProvider);
     }
 }

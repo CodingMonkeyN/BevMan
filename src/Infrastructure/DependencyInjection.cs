@@ -5,6 +5,7 @@ using BevMan.Domain.Entities;
 using BevMan.Infrastructure.Data;
 using BevMan.Infrastructure.Data.Interceptors;
 using BevMan.Infrastructure.Storage;
+using BevMan.Infrastructure.UserManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -85,6 +86,7 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IStorageService, SupabaseStorageService>();
+        services.AddScoped<IUserManagementService, UserManagementService>();
         services.AddScoped<Client>(_ => new Client(supabaseOptions.ProjectUrl, supabaseOptions.ApiKey));
         return services;
     }

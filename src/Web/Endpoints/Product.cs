@@ -17,6 +17,7 @@ public class Product : EndpointGroupBase
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
+            .DisableAntiforgery()
             .MapGet(GetProducts)
             .MapGet(GetProduct, "{id}")
             .MapPost(BuyProduct, "{id}/buy")

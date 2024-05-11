@@ -1,0 +1,48 @@
+<ion-nav [root]="root"></ion-nav>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'PRODUCTS.EDITOR.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form">
+    <ion-item>
+      <ion-input
+        [formControl]="form.controls.name"
+        label="{{ 'PRODUCTS.EDITOR.NAME_LABEL' | translate}}"
+        label-placement="stacked" />
+    </ion-item>
+    <ion-item>
+      <ion-input
+        [formControl]="form.controls.price"
+        label="{{ 'PRODUCTS.EDITOR.PRICE_LABEL' | translate}}"
+        label-placement="stacked" />
+    </ion-item>
+    <ion-item>
+      <ion-input
+        [formControl]="form.controls.quantity"
+        label="{{ 'PRODUCTS.EDITOR.QUANTITY_LABEL' | translate}}"
+        label-placement="stacked" />
+    </ion-item>
+    <ion-item>
+      <ion-input
+        [formControl]="form.controls.description"
+        label="{{ 'PRODUCTS.EDITOR.DESCRIPTION_LABEL' | translate}}"
+        label-placement="stacked" />
+    </ion-item>
+
+    <div class="ion-text-center">
+      <ion-button type="submit" (click)="save()" size="full">
+        {{ 'PRODUCTS.EDITOR.SAVE_BUTTON' | translate }}
+      </ion-button>
+      <br />
+      <ion-button (click)="delete()" color="danger" size="full">
+        {{ 'PRODUCTS.EDITOR.DELETE_BUTTON' | translate }}
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

@@ -1,5 +1,6 @@
 export * from './approve-balance-update-command';
 export * from './balance-dto';
+export * from './balance-request-dto';
 export * from './create-balance-request-command';
 export * from './create-product-command';
 export * from './product-dto';

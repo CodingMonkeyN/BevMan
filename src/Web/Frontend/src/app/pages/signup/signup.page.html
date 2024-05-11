@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button defaultHref="login" slot="start"></ion-back-button>
+    <ion-title>SignUp</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding">
+    <h1>BevMan</h1>
+    <p>Create an Account for BevMan</p>
+  </div>
+  <ion-list inset="true">
+    <form (ngSubmit)="handleSignup($event)">
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input type="email" [(ngModel)]="email" name="email" autocomplete></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input type="password" [(ngModel)]="password" name="password" autocomplete="new-password"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Confirm Password</ion-label>
+        <ion-input
+          type="password"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
+          autocomplete="new-password"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="password !== confirmPassword && confirmPassword !== ''">
+        <ion-label color="danger">Passwords do not match</ion-label>
+      </ion-item>
+
+      <div class="ion-text-center">
+        <ion-button type="submit" fill="clear">SignUp</ion-button>
+      </div>
+    </form>
+  </ion-list>
+</ion-content>

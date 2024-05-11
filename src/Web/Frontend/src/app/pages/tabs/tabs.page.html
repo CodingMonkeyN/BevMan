@@ -1,0 +1,25 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button href="/tabs/products" tab="products">
+      <ion-icon name="beer" aria-hidden="true"></ion-icon>
+      <ion-label>{{ 'PRODUCTS.TITLE' | translate }}</ion-label>
+    </ion-tab-button>
+
+    @if (userContext.hasRoles([UserRole.Admin])) {
+    <ion-tab-button href="/tabs/balance-requests" tab="balance-requests">
+      <ion-icon name="card" aria-hidden="true"></ion-icon>
+      <ion-label>{{ 'BALANCE_REQUEST.TITLE' | translate }}</ion-label>
+    </ion-tab-button>
+    } @if (userContext.hasRoles([UserRole.Admin])) {
+    <ion-tab-button href="/tabs/users" tab="users">
+      <ion-icon name="people" aria-hidden="true"></ion-icon>
+      <ion-label>{{ 'USER.TITLE' | translate }}</ion-label>
+    </ion-tab-button>
+    }
+
+    <ion-tab-button href="/tabs/account" tab="account">
+      <ion-icon name="person" aria-hidden="true"></ion-icon>
+      <ion-label>{{ 'ACCOUNT.TITLE' | translate }}</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

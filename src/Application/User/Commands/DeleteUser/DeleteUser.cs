@@ -12,11 +12,14 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand>
 {
     private readonly IApplicationDbContext _context;
     private readonly IUser _currentUser;
+    private readonly IUserManagementService _userManagementService;
 
-    public DeleteUserCommandHandler(IApplicationDbContext context, IUser currentUser)
+    public DeleteUserCommandHandler(IApplicationDbContext context, IUser currentUser,
+        IUserManagementService userManagementService)
     {
         _context = context;
         _currentUser = currentUser;
+        _userManagementService = userManagementService;
     }
 
     public async Task Handle(DeleteUserCommand request, CancellationToken cancellationToken)
@@ -26,12 +29,12 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand>
             throw new ForbiddenAccessException();
         }
 
+
         Domain.Entities.User? user =
             await _context.Users.FirstOrDefaultAsync(user => user.Id == Guid.Parse(_currentUser.Id!),
                 cancellationToken);
         Guard.Against.NotFound(Guid.Parse(_currentUser.Id!), user);
 
-        _context.Users.Remove(user);
-        await _context.SaveChangesAsync(cancellationToken);
+        await _userManagementService.DeleteUserAsync(_currentUser.Id!, cancellationToken);
     }
 }
