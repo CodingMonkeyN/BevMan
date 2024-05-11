@@ -8,6 +8,8 @@ builder.Services.AddCors();
 builder.Services.AddWebServices();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
+string port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://*:{port}");
 
 WebApplication app = builder.Build();
 
