@@ -19,19 +19,19 @@ public class CreateBalanceRequestCommandValidator : AbstractValidator<CreateBala
 public class CreateBalanceRequestCommandHandler : IRequestHandler<CreateBalanceRequestCommand, long>
 {
     private readonly IApplicationDbContext _context;
-    private readonly IUser _user;
+    private readonly ICurrentUser _currentUser;
 
-    public CreateBalanceRequestCommandHandler(IApplicationDbContext context, IUser user)
+    public CreateBalanceRequestCommandHandler(IApplicationDbContext context, ICurrentUser currentUser)
     {
         _context = context;
-        _user = user;
+        _currentUser = currentUser;
     }
 
     public async Task<long> Handle(CreateBalanceRequestCommand request, CancellationToken cancellationToken)
     {
         EntityEntry<Domain.Entities.BalanceRequest> balanceRequest =
             _context.BalanceRequests.Add(
-                new Domain.Entities.BalanceRequest { Amount = request.Amount, UserId = Guid.Parse(_user.Id!) });
+                new Domain.Entities.BalanceRequest { Amount = request.Amount, UserId = Guid.Parse(_currentUser.Id!) });
         await _context.SaveChangesAsync(cancellationToken);
         return balanceRequest.Entity.Id;
     }

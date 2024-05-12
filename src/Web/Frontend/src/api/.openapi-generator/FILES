@@ -7,6 +7,7 @@ api/balance-request.service.ts
 api/balance.service.ts
 api/product.service.ts
 api/role.service.ts
+api/user-profile.service.ts
 api/user-role.service.ts
 api/user.service.ts
 configuration.ts
@@ -21,7 +22,9 @@ model/create-product-command.ts
 model/models.ts
 model/product-dto.ts
 model/update-product-command.ts
+model/update-user-profile-command.ts
 model/update-user-roles-command.ts
 model/user-dto.ts
+model/user-profile-dto.ts
 param.ts
 variables.ts

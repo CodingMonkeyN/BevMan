@@ -294,6 +294,48 @@ paths:
       responses:
         '200':
           description: OK
+  /api/UserProfile:
+    get:
+      tags:
+        - UserProfile
+      operationId: GetUserProfile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileDto'
+    post:
+      tags:
+        - UserProfile
+      operationId: UpdateUserProfile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserProfileCommand'
+        required: true
+      responses:
+        '200':
+          description: OK
+  /api/UserProfile/image:
+    post:
+      tags:
+        - UserProfile
+      operationId: AddUserProfileImage
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AddUserProfileImageCommand'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddUserProfileImageCommand'
+        required: true
+      responses:
+        '200':
+          description: OK
   '/api/UserRole/{id}':
     put:
       tags:
@@ -329,6 +371,15 @@ components:
           format: int64
         image:
           minLength: 1
+          type: string
+          format: binary
+      additionalProperties: false
+    AddUserProfileImageCommand:
+      required:
+        - image
+      type: object
+      properties:
+        image:
           type: string
           format: binary
       additionalProperties: false
@@ -477,6 +528,16 @@ components:
         deleteImage:
           type: boolean
       additionalProperties: false
+    UpdateUserProfileCommand:
+      required:
+        - displayName
+      type: object
+      properties:
+        displayName:
+          maxLength: 100
+          minLength: 1
+          type: string
+      additionalProperties: false
     UpdateUserRolesCommand:
       required:
         - roles
@@ -508,4 +569,15 @@ components:
             type: string
         balance:
           $ref: '#/components/schemas/BalanceDto'
+      additionalProperties: false
+    UserProfileDto:
+      required:
+        - displayName
+      type: object
+      properties:
+        displayName:
+          type: string
+        avatarUrl:
+          type: string
+          nullable: true
       additionalProperties: false

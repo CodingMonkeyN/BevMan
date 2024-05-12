@@ -7,19 +7,19 @@ public record GetBalanceQuery : IRequest<BalanceDto>;
 public class GetBalanceQueryHandler : IRequestHandler<GetBalanceQuery, BalanceDto>
 {
     private readonly IApplicationDbContext _context;
+    private readonly ICurrentUser _currentUser;
     private readonly IMapper _mapper;
-    private readonly IUser _user;
 
-    public GetBalanceQueryHandler(IApplicationDbContext context, IUser user, IMapper mapper)
+    public GetBalanceQueryHandler(IApplicationDbContext context, ICurrentUser currentUser, IMapper mapper)
     {
         _context = context;
-        _user = user;
+        _currentUser = currentUser;
         _mapper = mapper;
     }
 
     public async Task<BalanceDto> Handle(GetBalanceQuery request, CancellationToken cancellationToken)
     {
-        Guid userId = Guid.Parse(_user.Id!);
+        Guid userId = Guid.Parse(_currentUser.Id!);
         Domain.Entities.Balance? balance = await _context.Balances
             .FirstOrDefaultAsync(balance => balance.UserId == userId, cancellationToken);
         List<Domain.Entities.BalanceRequest> balanceRequest = await _context.BalanceRequests

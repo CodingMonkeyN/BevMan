@@ -14,6 +14,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<BalanceRequest> BalanceRequests => Set<BalanceRequest>();
     public DbSet<UserRole> UserRoles => Set<UserRole>();
     public DbSet<Product> Products => Set<Product>();
+    public DbSet<UserProfile> UserProfiles => Set<UserProfile>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

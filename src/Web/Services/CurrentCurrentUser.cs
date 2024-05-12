@@ -3,11 +3,11 @@ using BevMan.Application.Common.Interfaces;
 
 namespace BevMan.Web.Services;
 
-public class CurrentUser : IUser
+public class CurrentCurrentUser : ICurrentUser
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public CurrentUser(IHttpContextAccessor httpContextAccessor)
+    public CurrentCurrentUser(IHttpContextAccessor httpContextAccessor)
     {
         _httpContextAccessor = httpContextAccessor;
     }

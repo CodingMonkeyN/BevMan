@@ -11,30 +11,30 @@ public record DeleteUserCommand : IRequest
 public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand>
 {
     private readonly IApplicationDbContext _context;
-    private readonly IUser _currentUser;
+    private readonly ICurrentUser _currentCurrentUser;
     private readonly IUserManagementService _userManagementService;
 
-    public DeleteUserCommandHandler(IApplicationDbContext context, IUser currentUser,
+    public DeleteUserCommandHandler(IApplicationDbContext context, ICurrentUser currentCurrentUser,
         IUserManagementService userManagementService)
     {
         _context = context;
-        _currentUser = currentUser;
+        _currentCurrentUser = currentCurrentUser;
         _userManagementService = userManagementService;
     }
 
     public async Task Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
-        if (request.Id != Guid.Parse(_currentUser.Id!))
+        if (request.Id != Guid.Parse(_currentCurrentUser.Id!))
         {
             throw new ForbiddenAccessException();
         }
 
 
         Domain.Entities.User? user =
-            await _context.Users.FirstOrDefaultAsync(user => user.Id == Guid.Parse(_currentUser.Id!),
+            await _context.Users.FirstOrDefaultAsync(user => user.Id == Guid.Parse(_currentCurrentUser.Id!),
                 cancellationToken);
-        Guard.Against.NotFound(Guid.Parse(_currentUser.Id!), user);
+        Guard.Against.NotFound(Guid.Parse(_currentCurrentUser.Id!), user);
 
-        await _userManagementService.DeleteUserAsync(_currentUser.Id!, cancellationToken);
+        await _userManagementService.DeleteUserAsync(_currentCurrentUser.Id!, cancellationToken);
     }
 }

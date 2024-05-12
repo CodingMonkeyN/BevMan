@@ -6,19 +6,19 @@ namespace BevMan.Application.Common.Behaviours;
 
 public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where TRequest : notnull
 {
+    private readonly ICurrentUser _currentUser;
     private readonly ILogger _logger;
-    private readonly IUser _user;
 
-    public LoggingBehaviour(ILogger<TRequest> logger, IUser user)
+    public LoggingBehaviour(ILogger<TRequest> logger, ICurrentUser currentUser)
     {
         _logger = logger;
-        _user = user;
+        _currentUser = currentUser;
     }
 
     public Task Process(TRequest request, CancellationToken cancellationToken)
     {
         string requestName = typeof(TRequest).Name;
-        string userId = _user.Id ?? string.Empty;
+        string userId = _currentUser.Id ?? string.Empty;
         string? userName = string.Empty;
 
         _logger.LogInformation("strichlisten_app Request: {Name} {@UserId} {@UserName} {@Request}",

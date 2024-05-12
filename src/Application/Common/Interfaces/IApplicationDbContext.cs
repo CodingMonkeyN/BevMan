@@ -10,6 +10,7 @@ public interface IApplicationDbContext
     DbSet<Domain.Entities.BalanceRequest> BalanceRequests { get; }
     DbSet<Domain.Entities.UserRole> UserRoles { get; }
     DbSet<Domain.Entities.User> Users { get; }
+    DbSet<Domain.Entities.UserProfile> UserProfiles { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

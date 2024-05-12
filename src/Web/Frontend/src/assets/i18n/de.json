@@ -45,8 +45,11 @@
   },
   "ACCOUNT": {
     "TITLE": "Account",
-    "BALANCE": "Account - {amount} ({amountInApproval}) €",
-    "LOGOUT_BUTTON": "Abmelden",
+    "ACTIONS": "Aktionen",
+    "BALANCE": "Aktuelles Guthaben: {amount} ({amountInApproval}) €",
+    "LOGOUT": "Abmelden",
+    "ADD_BALANCE": "Guthaben aufladen",
+    "CHANGE_PROFILE_PICTURE": "Profilbild ändern",
     "DELETE": "Account löschen"
   },
   "ADD_BALANCE": {

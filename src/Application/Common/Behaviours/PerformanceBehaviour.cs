@@ -6,18 +6,18 @@ namespace BevMan.Application.Common.Behaviours;
 
 public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {
+    private readonly ICurrentUser _currentUser;
     private readonly ILogger<TRequest> _logger;
     private readonly Stopwatch _timer;
-    private readonly IUser _user;
 
     public PerformanceBehaviour(
         ILogger<TRequest> logger,
-        IUser user)
+        ICurrentUser currentUser)
     {
         _timer = new Stopwatch();
 
         _logger = logger;
-        _user = user;
+        _currentUser = currentUser;
     }
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
@@ -34,7 +34,7 @@ public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequ
         if (elapsedMilliseconds > 500)
         {
             string requestName = typeof(TRequest).Name;
-            string userId = _user.Id ?? string.Empty;
+            string userId = _currentUser.Id ?? string.Empty;
             string userName = string.Empty;
 
             _logger.LogWarning(

@@ -21,12 +21,12 @@ public class BuyProductCommandValidator : AbstractValidator<BuyProductCommand>
 public class BuyProductCommandHandler : IRequestHandler<BuyProductCommand, BuyProductResponse>
 {
     private readonly IApplicationDbContext _context;
-    private readonly IUser _currentUser;
+    private readonly ICurrentUser _currentCurrentUser;
 
-    public BuyProductCommandHandler(IApplicationDbContext context, IUser currentUser)
+    public BuyProductCommandHandler(IApplicationDbContext context, ICurrentUser currentCurrentUser)
     {
         _context = context;
-        _currentUser = currentUser;
+        _currentCurrentUser = currentCurrentUser;
     }
 
     public async Task<BuyProductResponse> Handle(BuyProductCommand request, CancellationToken cancellationToken)
@@ -36,7 +36,7 @@ public class BuyProductCommandHandler : IRequestHandler<BuyProductCommand, BuyPr
         Guard.Against.NotFound(request.ProductId, entity);
 
         Domain.Entities.Balance? userBalance =
-            await _context.Balances.FirstOrDefaultAsync(balance => balance.UserId.ToString() == _currentUser.Id,
+            await _context.Balances.FirstOrDefaultAsync(balance => balance.UserId.ToString() == _currentCurrentUser.Id,
                 cancellationToken);
 
         Guard.Against.Null(userBalance);

@@ -1,34 +1,62 @@
 <ion-header>
   <ion-toolbar>
-    @if (balance().isLoading) {
+    <ion-title>
+      <div class="flex justify-between">
+        <div>{{ 'ACCOUNT.TITLE' | translate }}</div>
+        <ion-avatar id="user-profile-desktop" class="h-8 w-8">
+          @if (user().data; as user) {
+          <img
+            [src]="user?.avatarUrl ? user.avatarUrl : 'https://ionicframework.com/docs/img/demos/avatar.svg'"
+            alt="" />
+          } @else {
+          <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          }
+        </ion-avatar>
+      </div>
+    </ion-title>
+    @if (user().isLoading) {
     <ion-skeleton-text [animated]="true"></ion-skeleton-text>
-    } @if (balance().data; as balance) {
-    <ion-title>{{ 'ACCOUNT.BALANCE' | translate : balance }}</ion-title>
     }
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <ion-header collapse="condense">
     <ion-toolbar>
-      @if (balance().isLoading) {
+      <ion-title size="large">{{ 'ACCOUNT.TITLE' | translate }}</ion-title>
+      @if (user().isLoading) {
       <ion-skeleton-text [animated]="true"></ion-skeleton-text>
-      } @if (balance().data; as balance) {
-      <ion-title size="large">{{ 'ACCOUNT.BALANCE' | translate : balance }}</ion-title>
       }
+      <ion-avatar id="user-profile" slot="end">
+        @if (user().data; as user) {
+        <img [src]="user?.avatarUrl ? user.avatarUrl : 'https://ionicframework.com/docs/img/demos/avatar.svg'" alt="" />
+        } @else {
+        <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        }
+      </ion-avatar>
     </ion-toolbar>
   </ion-header>
-  <div class="flex flex-col">
-    <ion-button id="delete-account" color="danger" size="full" translate>ACCOUNT.DELETE</ion-button>
-    <ion-button (click)="signOut()" size="full">{{ 'ACCOUNT.LOGOUT_BUTTON' | translate }}</ion-button>
+
+  @if (balance().isLoading) {
+  <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+  } @if (balance().data; as balance) {
+  <div class="flex flex-col gap-4">
+    <ion-text>
+      <h1>{{ 'ACCOUNT.BALANCE' | translate : balance }}</h1>
+    </ion-text>
+    <ion-button routerLink="add-balance" size="full" translate>ACCOUNT.ADD_BALANCE</ion-button>
   </div>
+  }
   <ion-action-sheet
-    [buttons]="deleteAccountButtons"
-    [header]="'ACCOUNT.DELETE' | translate"
-    trigger="delete-account"></ion-action-sheet>
-  <ion-fab horizontal="end" slot="fixed" vertical="bottom">
-    <ion-fab-button routerLink="add-balance">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    [buttons]="accountButtons"
+    [header]="'ACCOUNT.ACTIONS' | translate"
+    trigger="user-profile"></ion-action-sheet>
+  <ion-action-sheet
+    [buttons]="accountButtons"
+    [header]="'ACCOUNT.ACTIONS' | translate"
+    trigger="user-profile-desktop"></ion-action-sheet>
+  <input #fileInput type="file" (change)="pickFile(fileInput)" class="hidden" />
 </ion-content>
+<ion-footer>
+  <ion-button id="delete-account" color="danger" size="full" translate>ACCOUNT.DELETE</ion-button>
+</ion-footer>
