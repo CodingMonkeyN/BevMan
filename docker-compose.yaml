@@ -9,7 +9,7 @@ services:
   app:
     container_name: app
     build: 
-      context: .
-      dockerfile: DockerfileAngular
+      context: src/Web/Frontend
+      dockerfile: Dockerfile
     ports:
       - 4200:80
