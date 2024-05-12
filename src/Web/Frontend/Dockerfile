@@ -7,7 +7,7 @@ FROM node:latest as build
 WORKDIR /app
 
 # Add the source code to app
-COPY src/Web/Frontend /app 
+COPY . /app 
 # Install all the dependencies
 RUN npm install
 
