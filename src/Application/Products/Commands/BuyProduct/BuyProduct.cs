@@ -31,7 +31,6 @@ public class BuyProductCommandHandler : IRequestHandler<BuyProductCommand>
     public async Task Handle(BuyProductCommand request, CancellationToken cancellationToken)
     {
         Product? entity = await _context.Products.FindAsync(request.ProductId);
-
         Guard.Against.NotFound(request.ProductId, entity);
 
         Domain.Entities.Balance? userBalance =
@@ -40,12 +39,18 @@ public class BuyProductCommandHandler : IRequestHandler<BuyProductCommand>
 
         Guard.Against.Null(userBalance);
 
+        if (entity.Quantity <= 0)
+        {
+            throw new BadRequestException("Product is out of stock");
+        }
+
         if (userBalance.Amount < entity.Price)
         {
             throw new BadRequestException("Not enough money");
         }
 
         userBalance.Amount -= entity.Price;
+        entity.Quantity -= 1;
         await _context.SaveChangesAsync(cancellationToken);
     }
 }

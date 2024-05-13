@@ -19,6 +19,8 @@ import {
   IonList,
   IonNote,
   IonPopover,
+  IonRefresher,
+  IonRefresherContent,
   IonRouterLink,
   IonSkeletonText,
   IonSpinner,
@@ -36,7 +38,7 @@ import { injectMutation, injectQuery, injectQueryClient } from '@ngneat/query';
 import { NotificationService } from '../../services/notification.service';
 import { addIcons } from 'ionicons';
 import { add } from 'ionicons/icons';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, RefresherCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-product-page',
@@ -72,6 +74,8 @@ import { LoadingController } from '@ionic/angular';
     IonSpinner,
     IonFabButton,
     IonFab,
+    IonRefresher,
+    IonRefresherContent,
   ],
 })
 export class ProductPage {
@@ -93,12 +97,13 @@ export class ProductPage {
     onMutate: () => this.loadingController.create().then(loading => loading.present()),
     onSuccess: async () => {
       await this.loadingController.dismiss();
-      await this.notification.showSuccess('PRODUCT.BUY_SUCCESS');
-      await this.#queryClient.invalidateQueries({ queryKey: ['products', 'balance'] });
+      await this.notification.showSuccess('PRODUCTS.BUY_SUCCESS');
+      await this.#queryClient.invalidateQueries({ queryKey: ['products'] });
+      await this.#queryClient.invalidateQueries({ queryKey: ['balance'] });
     },
     onError: async () => {
       await this.loadingController.dismiss();
-      return this.notification.showError('PRODUCT.BUY_ERROR');
+      return this.notification.showError('PRODUCTS.BUY_ERROR');
     },
   });
 
@@ -118,6 +123,18 @@ export class ProductPage {
       return id.toString();
     }
     return undefined;
+  }
+
+  protected async onBuyProduct(product: ProductDto): Promise<void> {
+    await this.buyProduct.mutateAsync(product);
+  }
+
+  protected async update(event: RefresherCustomEvent): Promise<void> {
+    await this.#queryClient.invalidateQueries({ queryKey: ['products'] });
+    await this.#queryClient.invalidateQueries({ queryKey: ['balance'] });
+    setTimeout(() => {
+      event.detail.complete();
+    }, 200);
   }
 
   protected readonly UserRole = UserRole;

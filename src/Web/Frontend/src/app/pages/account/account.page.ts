@@ -15,6 +15,8 @@ import {
   IonItem,
   IonLabel,
   IonList,
+  IonRefresher,
+  IonRefresherContent,
   IonRouterLink,
   IonSkeletonText,
   IonText,
@@ -28,7 +30,7 @@ import { add } from 'ionicons/icons';
 import { BalanceService, UserProfileService, UserService } from '../../../api';
 import { SupabaseService } from '../../services/supabase.service';
 import { injectMutation, injectQuery, injectQueryClient } from '@ngneat/query';
-import { ActionSheetButton, LoadingController } from '@ionic/angular';
+import { ActionSheetButton, LoadingController, RefresherCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-account',
@@ -58,6 +60,8 @@ import { ActionSheetButton, LoadingController } from '@ionic/angular';
     IonAvatar,
     IonFooter,
     IonButtons,
+    IonRefresher,
+    IonRefresherContent,
   ],
 })
 export class AccountPage {
@@ -139,5 +143,13 @@ export class AccountPage {
     await this.supabase.signOut();
     this.#queryClient.removeQueries();
     await this.router.navigate(['/login'], { replaceUrl: true });
+  }
+
+  async update(event: RefresherCustomEvent): Promise<void> {
+    await this.#queryClient.invalidateQueries({ queryKey: ['userProfile'] });
+    await this.#queryClient.invalidateQueries({ queryKey: ['balance'] });
+    setTimeout(() => {
+      event.detail.complete();
+    }, 200);
   }
 }

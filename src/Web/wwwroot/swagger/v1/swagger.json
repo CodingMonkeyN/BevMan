@@ -274,12 +274,12 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/DeleteProductImageCommand"
+                "$ref": "#/components/schemas/BuyProductCommand"
               }
             },
             "application/x-www-form-urlencoded": {
               "schema": {
-                "$ref": "#/components/schemas/DeleteProductImageCommand"
+                "$ref": "#/components/schemas/BuyProductCommand"
               }
             }
           },
@@ -658,6 +658,19 @@
           "amount": {
             "type": "number",
             "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BuyProductCommand": {
+        "required": [
+          "productId"
+        ],
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "integer",
+            "format": "int64"
           }
         },
         "additionalProperties": false

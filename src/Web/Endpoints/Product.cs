@@ -1,4 +1,5 @@
 using BevMan.Application.Products.Commands.AddProductImage;
+using BevMan.Application.Products.Commands.BuyProduct;
 using BevMan.Application.Products.Commands.CreateProduct;
 using BevMan.Application.Products.Commands.DeleteProduct;
 using BevMan.Application.Products.Commands.DeleteProductImage;
@@ -85,7 +86,7 @@ public class Product : EndpointGroupBase
     }
 
     private async Task<IResult> BuyProduct(ISender sender, long id,
-        [FromForm] DeleteProductImageCommand command)
+        [FromForm] BuyProductCommand command)
     {
         if (id != command.ProductId)
         {

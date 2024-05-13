@@ -45,6 +45,7 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
         entity.Name = request.Name;
         entity.Description = request.Description;
         entity.Price = request.Price;
+        entity.Quantity = request.Quantity;
 
         await _context.SaveChangesAsync(cancellationToken);
 

@@ -17,7 +17,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content>
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">{{ 'ACCOUNT.TITLE' | translate }}</ion-title>
@@ -33,6 +33,9 @@
       </ion-avatar>
     </ion-toolbar>
   </ion-header>
+  <ion-refresher (ionRefresh)="update($event)" slot="fixed">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
   @if (balance().isLoading) {
   <ion-skeleton-text [animated]="true"></ion-skeleton-text>

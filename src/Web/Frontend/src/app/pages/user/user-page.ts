@@ -11,6 +11,8 @@ import {
   IonLabel,
   IonList,
   IonNote,
+  IonRefresher,
+  IonRefresherContent,
   IonRouterLink,
   IonSkeletonText,
   IonThumbnail,
@@ -20,7 +22,8 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { UserService } from '../../../api';
-import { injectQuery } from '@ngneat/query';
+import { injectQuery, injectQueryClient } from '@ngneat/query';
+import { RefresherCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-user',
@@ -46,12 +49,22 @@ import { injectQuery } from '@ngneat/query';
     RouterLink,
     IonSkeletonText,
     IonNote,
+    IonRefresher,
+    IonRefresherContent,
   ],
 })
 export class UserPage {
   #query = injectQuery();
+  #queryClient = injectQueryClient();
   protected readonly users = this.#query({ queryFn: () => this.user.getUsers(), queryKey: ['users'] }).result;
 
   private readonly user = inject(UserService);
   protected readonly Array = Array;
+
+  protected async update(event: RefresherCustomEvent): Promise<void> {
+    await this.#queryClient.invalidateQueries({ queryKey: ['users'] });
+    setTimeout(() => {
+      event.detail.complete();
+    }, 200);
+  }
 }
