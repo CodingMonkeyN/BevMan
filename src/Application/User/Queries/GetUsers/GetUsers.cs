@@ -21,6 +21,7 @@ public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, IEnumerable<U
         return await _context.Users
             .Include(user => user.Roles)
             .Include(user => user.Balance)
+            .Include(user => user.Profile)
             .ProjectToListAsync<UserDto>(_mapper.ConfigurationProvider);
     }
 }

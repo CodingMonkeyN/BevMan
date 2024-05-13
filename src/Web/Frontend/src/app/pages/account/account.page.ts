@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import {
   IonActionSheet,
@@ -20,7 +20,6 @@ import {
   IonText,
   IonTitle,
   IonToolbar,
-  Platform,
 } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -29,9 +28,7 @@ import { add } from 'ionicons/icons';
 import { BalanceService, UserProfileService, UserService } from '../../../api';
 import { SupabaseService } from '../../services/supabase.service';
 import { injectMutation, injectQuery, injectQueryClient } from '@ngneat/query';
-import { ActionSheetButton } from '@ionic/angular';
-import { Camera } from '@capacitor/camera';
-import { Filesystem } from '@capacitor/filesystem';
+import { ActionSheetButton, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-account',
@@ -64,7 +61,7 @@ import { Filesystem } from '@capacitor/filesystem';
   ],
 })
 export class AccountPage {
-  @ViewChild('fileInput') fileInput!: HTMLInputElement;
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   #query = injectQuery();
   #queryClient = injectQueryClient();
@@ -94,7 +91,12 @@ export class AccountPage {
     mutationFn: (blob: Blob) => {
       return this.userProfile.addUserProfileImage(blob);
     },
-    onSuccess: () => this.logout(),
+    onMutate: () => this.loadingController.create().then(loading => loading.present()),
+    onSuccess: async () => {
+      await this.loadingController.dismiss();
+      return this.#queryClient.invalidateQueries({ queryKey: ['userProfile'] });
+    },
+    onError: () => this.loadingController.dismiss(),
   });
 
   protected readonly translate = inject(TranslateService);
@@ -102,13 +104,7 @@ export class AccountPage {
     {
       text: this.translate.instant('ACCOUNT.CHANGE_PROFILE_PICTURE'),
       role: 'selected',
-      handler: async () => {
-        if (this.platform.is('mobile')) {
-          await this.pickPhoto();
-          return;
-        }
-        this.fileInput.click();
-      },
+      handler: () => this.fileInput.nativeElement.click(),
     },
     {
       text: this.translate.instant('ACCOUNT.LOGOUT'),
@@ -125,7 +121,7 @@ export class AccountPage {
   private readonly supabase = inject(SupabaseService);
   private readonly userService = inject(UserService);
   private readonly userProfile = inject(UserProfileService);
-  private readonly platform = inject(Platform);
+  private readonly loadingController = inject(LoadingController);
   private readonly router = inject(Router);
 
   constructor() {
@@ -143,25 +139,5 @@ export class AccountPage {
     await this.supabase.signOut();
     this.#queryClient.removeQueries();
     await this.router.navigate(['/login'], { replaceUrl: true });
-  }
-
-  private async pickPhoto(): Promise<void> {
-    const image = await Camera.pickImages({ limit: 1 });
-    if (image.photos.length === 0) {
-      return;
-    }
-
-    const { data } = await Filesystem.readFile({ path: image.photos[0].path! });
-    const blob = data instanceof Blob ? data : this.base64toBlob(data, image.photos[0].format);
-    await this.addProfilePicture.mutateAsync(blob);
-  }
-
-  private base64toBlob(base64: string, type: string): Blob {
-    const binaryString = atob(base64);
-    const bytes = new Uint8Array(binaryString.length);
-    for (let i = 0; i < binaryString.length; i++) {
-      bytes[i] = binaryString.charCodeAt(i);
-    }
-    return new Blob([bytes], { type });
   }
 }

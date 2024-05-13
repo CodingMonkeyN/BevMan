@@ -23,10 +23,11 @@ import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators 
 import { NgIf } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, tap } from 'rxjs';
-import { ProductService } from '../../../../api';
-import { injectMutation, injectQueryClient } from '@ngneat/query';
+import { filter, switchMap, tap } from 'rxjs';
+import { ProductDto, ProductService } from '../../../../api';
+import { injectMutation, injectQuery, injectQueryClient } from '@ngneat/query';
 import { NotificationService } from '../../../services/notification.service';
+import { LoadingController } from '@ionic/angular';
 
 interface ProductForm {
   name: FormControl<string>;
@@ -71,6 +72,10 @@ interface ProductFormValue {
   ],
 })
 export class ProductDetailsPage {
+  readonly #query = injectQuery();
+  readonly #mutation = injectMutation();
+  readonly #queryClient = injectQueryClient();
+
   protected readonly root = ProductPage;
   protected readonly form = inject(FormBuilder).group<ProductForm>({
     name: new FormControl({ value: '', disabled: false }, { nonNullable: true, validators: [Validators.required] }),
@@ -85,48 +90,122 @@ export class ProductDetailsPage {
     ),
   });
 
-  private id = signal<number | undefined>(undefined);
+  protected product = signal<ProductDto | undefined>(undefined);
 
-  private readonly mutation = injectMutation();
-  private readonly queryClient = injectQueryClient();
   private readonly notification = inject(NotificationService);
-  private readonly editProduct = this.mutation({
-    mutationFn: (value: ProductFormValue) => this.product.updateProduct(this.id()!, { ...value, id: this.id()! }),
+  protected readonly addProduct = this.#mutation({
+    mutationFn: (value: ProductFormValue) => this.productService.createProduct(value),
+    onMutate: () => this.loadingController.create().then(loading => loading.present()),
     onSuccess: async () => {
-      await this.queryClient.invalidateQueries({ queryKey: ['products'] });
+      await this.loadingController.dismiss();
+      await this.#queryClient.invalidateQueries({ queryKey: ['products'] });
       await this.router.navigate(['..', { relativeTo: this.route }]);
     },
-    onError: () => this.notification.showError('PRODUCT_DETAILS.ERROR'),
+    onError: async () => {
+      await this.loadingController.dismiss();
+      return this.notification.showError('PRODUCT_DETAILS.ERROR');
+    },
+  });
+  protected readonly addProductImage = this.#mutation({
+    mutationFn: ({ productId, blob }: { productId: number; blob: Blob }) =>
+      this.productService.addProductImage(productId, productId, blob),
+    onMutate: () => this.loadingController.create().then(loading => loading.present()),
+    onSuccess: async () => {
+      await this.loadingController.dismiss();
+      await this.#queryClient.invalidateQueries({ queryKey: ['products'] });
+      await this.#queryClient.invalidateQueries({ queryKey: ['product'] });
+    },
+    onError: async () => {
+      await this.loadingController.dismiss();
+      return this.notification.showError('PRODUCT.EDITOR.ADD_IMAGE_ERROR');
+    },
+  });
+  protected readonly deleteProductImage = this.#mutation({
+    mutationFn: ({ id }: ProductDto) => this.productService.deleteProductImage(id, id),
+    onMutate: () => this.loadingController.create().then(loading => loading.present()),
+    onSuccess: async () => {
+      await this.loadingController.dismiss();
+      await this.#queryClient.invalidateQueries({ queryKey: ['products'] });
+      await this.#queryClient.invalidateQueries({ queryKey: ['product'] });
+    },
+    onError: async () => {
+      await this.loadingController.dismiss();
+      return this.notification.showError('PRODUCT.EDITOR.DELETE_IMAGE_ERROR');
+    },
+  });
+  protected readonly editProduct = this.#mutation({
+    mutationFn: (value: ProductFormValue) =>
+      this.productService.updateProduct(this.product()?.id!, {
+        ...value,
+        id: this.product()!.id,
+      }),
+    onMutate: () => this.loadingController.create().then(loading => loading.present()),
+    onSuccess: async () => {
+      await this.loadingController.dismiss();
+      await this.#queryClient.invalidateQueries({ queryKey: ['products'] });
+      await this.router.navigate(['..', { relativeTo: this.route }]);
+    },
+    onError: async () => {
+      await this.loadingController.dismiss();
+      return this.notification.showError('PRODUCT.EDITOR.DELETE_ERROR');
+    },
+  });
+  protected readonly deleteProduct = this.#mutation({
+    mutationFn: () => this.productService.deleteProduct(this.product()?.id!),
+    onMutate: () => this.loadingController.create().then(loading => loading.present()),
+    onSuccess: async () => {
+      await this.loadingController.dismiss();
+      await this.#queryClient.invalidateQueries({ queryKey: ['products'] });
+      await this.router.navigate(['..', { relativeTo: this.route }]);
+    },
+    onError: async () => {
+      await this.loadingController.dismiss();
+      return this.notification.showError('PRODUCT.EDITOR.DELETE_ERROR');
+    },
   });
 
   constructor(
     private readonly router: Router,
-    private readonly product: ProductService,
+    private readonly productService: ProductService,
+    private readonly loadingController: LoadingController,
     private readonly route: ActivatedRoute,
   ) {
     this.route.params
       .pipe(
         takeUntilDestroyed(),
-        tap(({ id }) => this.id.set(Number(id))),
-        switchMap(({ id }) => this.product.getProduct(Number(id))),
+        filter(({ id }) => !!id),
+        switchMap(
+          ({ id }) =>
+            this.#query({
+              queryKey: ['product', id],
+              queryFn: () => this.productService.getProduct(id),
+            }).result$,
+        ),
+        tap(product => console.log(product.data)),
+        tap(product => this.product.set(product.data)),
       )
-      .subscribe(product => this.form.patchValue(product as ProductFormValue));
+      .subscribe(product => this.form.patchValue(product.data as ProductFormValue));
   }
 
   async save(): Promise<void> {
-    if (!this.id()) {
+    if (!this.product()) {
+      await this.addProduct.mutateAsync(this.form.getRawValue());
       return;
     }
-    this.editProduct.mutate(this.form.getRawValue());
+    await this.editProduct.mutateAsync(this.form.getRawValue());
   }
 
-  delete(): void {
-    if (!this.id()) {
+  async delete(): Promise<void> {
+    if (!this.product()) {
       return;
     }
-    try {
-    } catch (error) {
-      console.error(error);
+    await this.deleteProduct.mutateAsync(this.product());
+  }
+
+  async addFile(input: HTMLInputElement): Promise<void> {
+    if (!input.files?.length || !this.product()) {
+      return;
     }
+    await this.addProductImage.mutateAsync({ productId: this.product()!.id, blob: input.files![0] });
   }
 }

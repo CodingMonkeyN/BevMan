@@ -47,7 +47,8 @@ public class AddUserProfileImageCommandHandler : IRequestHandler<AddUserProfileI
 
 
         Blob blob = new(request.Image);
-        string path = userProfile.Id.ToString();
+        long random = new Random().NextInt64();
+        string path = $"{userId}-{random}";
         string[] pathTokens = path.Split('/');
         string publicUrl = await _storageService.UploadFileAsync(blob, "userProfiles",
             path, cancellationToken);

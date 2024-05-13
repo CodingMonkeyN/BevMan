@@ -9,6 +9,13 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  @if (product()?.publicUrl) {
+  <div class="m-4 flex w-full justify-center">
+    <ion-thumbnail>
+      <img [src]="product()!.publicUrl" />
+    </ion-thumbnail>
+  </div>
+  }
   <form [formGroup]="form">
     <ion-item>
       <ion-input
@@ -35,14 +42,23 @@
         label-placement="stacked" />
     </ion-item>
 
-    <div class="ion-text-center">
+    <div class="flex flex-col gap-4">
       <ion-button type="submit" (click)="save()" size="full">
         {{ 'PRODUCTS.EDITOR.SAVE_BUTTON' | translate }}
       </ion-button>
-      <br />
+      @if (product()) {
+      <ion-button (click)="input.click()" size="full"> {{ 'PRODUCTS.EDITOR.ADD_IMAGE' | translate }}</ion-button>
+      @if (product()?.publicUrl) {
+      <ion-button [mode]="" (click)="deleteProductImage.mutateAsync(product()!)" size="full">
+        {{ 'PRODUCTS.EDITOR.DELETE_IMAGE' | translate }}
+      </ion-button>
+      }
       <ion-button (click)="delete()" color="danger" size="full">
         {{ 'PRODUCTS.EDITOR.DELETE_BUTTON' | translate }}
       </ion-button>
+      }
+      <br />
     </div>
+    <input #input type="file" (change)="addFile(input)" multiple class="hidden" />
   </form>
 </ion-content>

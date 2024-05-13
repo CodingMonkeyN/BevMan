@@ -1,13 +1,21 @@
 <ion-header>
   <ion-toolbar>
+    @if (balance().isLoading) {
     <ion-title>{{ 'PRODUCTS.TITLE' | translate }}</ion-title>
+    } @if (balance().data; as balance) {
+    <ion-title>{{ 'PRODUCTS.TITLE_WITH_BALANCE' | translate : balance }}</ion-title>
+    }
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <ion-header collapse="condense">
     <ion-toolbar>
+      @if (balance().isLoading) {
       <ion-title size="large">{{ 'PRODUCTS.TITLE' | translate }}</ion-title>
+      } @if (balance().data; as balance) {
+      <ion-title size="large">{{ 'PRODUCTS.TITLE_WITH_BALANCE' | translate : balance }}</ion-title>
+      }
     </ion-toolbar>
   </ion-header>
   <ion-list>
@@ -38,20 +46,33 @@
           <ion-icon name="beer" style="font-size: 50px; vertical-align: middle; horiz-align: center" />
           }
         </ion-thumbnail>
-        <ion-label>
+        <ion-label class="flex flex-col">
           <ion-text>{{ product.name }}</ion-text>
+          @if (product.description) {
           <br />
           <ion-note style="font-size: small">{{ product.description }}</ion-note>
+          }
+          <br />
+          <ion-note style="font-size: small">{{ "PRODUCTS.QUANTITY" | translate : product }}</ion-note>
         </ion-label>
         <ion-label slot="end" style="font-size: large">{{ product.price }} €</ion-label>
       </ion-item>
 
+      @if (balance().data; as balance) { @if ((balance?.amount ?? 0) >= product.price) {
       <ion-item-options side="end">
-        <ion-item-option (click)="slideActionBuy(product)" color="medium"
+        <ion-item-option (click)="buyProduct.mutateAsync(product)" color="medium"
           >{{ 'PRODUCTS.SLIDE_ACTION_BUY' | translate }}
         </ion-item-option>
       </ion-item-options>
+      } }
     </ion-item-sliding>
     } }
   </ion-list>
+  @if (userContext.hasRoles([UserRole.Admin])) {
+  <ion-fab horizontal="end" slot="fixed" vertical="bottom">
+    <ion-fab-button routerLink="create">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  }
 </ion-content>

@@ -7,6 +7,8 @@ import {
   IonCardSubtitle,
   IonCardTitle,
   IonContent,
+  IonFab,
+  IonFabButton,
   IonHeader,
   IonIcon,
   IonItem,
@@ -19,6 +21,7 @@ import {
   IonPopover,
   IonRouterLink,
   IonSkeletonText,
+  IonSpinner,
   IonText,
   IonThumbnail,
   IonTitle,
@@ -26,10 +29,14 @@ import {
 } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
-import { ProductDto, ProductService } from '../../../api';
+import { BalanceService, ProductDto, ProductService } from '../../../api';
 import { UserContext } from '../../services/user-context.service';
 import { UserRole } from '../../enums/user-role.enum';
-import { injectQuery } from '@ngneat/query';
+import { injectMutation, injectQuery, injectQueryClient } from '@ngneat/query';
+import { NotificationService } from '../../services/notification.service';
+import { addIcons } from 'ionicons';
+import { add } from 'ionicons/icons';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-product-page',
@@ -62,18 +69,49 @@ import { injectQuery } from '@ngneat/query';
     IonNote,
     IonIcon,
     IonSkeletonText,
+    IonSpinner,
+    IonFabButton,
+    IonFab,
   ],
 })
 export class ProductPage {
   #query = injectQuery();
+  #queryClient = injectQueryClient();
+  #mutation = injectMutation();
 
   protected readonly products = this.#query({
     queryFn: () => this.product.getProducts(),
     queryKey: ['products'],
   }).result;
 
+  protected readonly balance = this.#query({
+    queryFn: () => this.balanceService.getBalance(),
+    queryKey: ['balance'],
+  }).result;
+  protected readonly buyProduct = this.#mutation({
+    mutationFn: (product: ProductDto) => this.product.buyProduct(product.id, product.id),
+    onMutate: () => this.loadingController.create().then(loading => loading.present()),
+    onSuccess: async () => {
+      await this.loadingController.dismiss();
+      await this.notification.showSuccess('PRODUCT.BUY_SUCCESS');
+      await this.#queryClient.invalidateQueries({ queryKey: ['products', 'balance'] });
+    },
+    onError: async () => {
+      await this.loadingController.dismiss();
+      return this.notification.showError('PRODUCT.BUY_ERROR');
+    },
+  });
+
+  protected readonly Array = Array;
   protected readonly userContext = inject(UserContext);
-  protected readonly product = inject(ProductService);
+  private readonly balanceService = inject(BalanceService);
+  private readonly product = inject(ProductService);
+  private readonly loadingController = inject(LoadingController);
+  private readonly notification = inject(NotificationService);
+
+  constructor() {
+    addIcons({ add });
+  }
 
   protected getRouterLink(id: number): string | undefined {
     if (this.userContext.hasRoles([UserRole.Admin])) {
@@ -82,9 +120,5 @@ export class ProductPage {
     return undefined;
   }
 
-  protected slideActionBuy(product: ProductDto): void {
-    console.log(`Buying ${product.name}`);
-  }
-
-  protected readonly Array = Array;
+  protected readonly UserRole = UserRole;
 }

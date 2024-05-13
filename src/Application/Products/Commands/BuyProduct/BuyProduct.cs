@@ -1,14 +1,13 @@
 ﻿using BevMan.Application.Common.Interfaces;
 using BevMan.Domain.Entities;
+using BevMan.Domain.Exceptions;
 
 namespace BevMan.Application.Products.Commands.BuyProduct;
 
-public record BuyProductCommand : IRequest<BuyProductResponse>
+public record BuyProductCommand : IRequest
 {
     public long ProductId { get; set; }
 }
-
-public record BuyProductResponse(string? ErrorCode);
 
 public class BuyProductCommandValidator : AbstractValidator<BuyProductCommand>
 {
@@ -18,7 +17,7 @@ public class BuyProductCommandValidator : AbstractValidator<BuyProductCommand>
     }
 }
 
-public class BuyProductCommandHandler : IRequestHandler<BuyProductCommand, BuyProductResponse>
+public class BuyProductCommandHandler : IRequestHandler<BuyProductCommand>
 {
     private readonly IApplicationDbContext _context;
     private readonly ICurrentUser _currentCurrentUser;
@@ -29,7 +28,7 @@ public class BuyProductCommandHandler : IRequestHandler<BuyProductCommand, BuyPr
         _currentCurrentUser = currentCurrentUser;
     }
 
-    public async Task<BuyProductResponse> Handle(BuyProductCommand request, CancellationToken cancellationToken)
+    public async Task Handle(BuyProductCommand request, CancellationToken cancellationToken)
     {
         Product? entity = await _context.Products.FindAsync(request.ProductId);
 
@@ -43,12 +42,10 @@ public class BuyProductCommandHandler : IRequestHandler<BuyProductCommand, BuyPr
 
         if (userBalance.Amount < entity.Price)
         {
-            return new BuyProductResponse("INSUFFICIENT_FUNDS");
+            throw new BadRequestException("Not enough money");
         }
 
         userBalance.Amount -= entity.Price;
         await _context.SaveChangesAsync(cancellationToken);
-
-        return new BuyProductResponse(null);
     }
 }

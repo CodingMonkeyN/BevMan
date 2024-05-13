@@ -41,6 +41,8 @@ public class DeleteProductImageCommandHandler : IRequestHandler<DeleteProductIma
 
         await _storageService.DeleteFileAsync("products", string.Join("/", entity.StorageObject.PathTokens),
             cancellationToken);
+        entity.PublicUrl = null;
+        await _context.SaveChangesAsync(cancellationToken);
         return entity.Id;
     }
 }

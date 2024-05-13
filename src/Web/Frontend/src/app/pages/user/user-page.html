@@ -28,10 +28,12 @@
     } } @if (users().data; as users) { @for (user of users; track user.id) {
     <ion-item [routerLink]="user.id">
       <ion-avatar slot="start" aria-hidden="true">
-        <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        <img
+          [src]="user.profile?.avatarUrl ? user.profile!.avatarUrl! : 'https://ionicframework.com/docs/img/demos/avatar.svg'"
+          alt="" />
       </ion-avatar>
       <div class="flex flex-col">
-        <ion-label class="flex flex-col"> {{ user.email }}</ion-label>
+        <ion-label class="flex flex-col"> {{ user.profile?.displayName ?? user.email }}</ion-label>
         <ion-note> {{ user.balance?.amount ?? 0 }} €</ion-note>
       </div>
     </ion-item>

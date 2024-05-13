@@ -861,6 +861,9 @@
           },
           "balance": {
             "$ref": "#/components/schemas/BalanceDto"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/UserProfileDto"
           }
         },
         "additionalProperties": false

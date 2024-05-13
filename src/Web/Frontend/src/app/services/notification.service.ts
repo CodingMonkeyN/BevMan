@@ -24,4 +24,13 @@ export class NotificationService {
     });
     await toast.present();
   }
+
+  async showSuccess(translateKey: string): Promise<void> {
+    const toast = await this.toastController.create({
+      message: this.translate.instant(translateKey),
+      duration: 1500,
+      color: 'success',
+    });
+    await toast.present();
+  }
 }

@@ -32,6 +32,7 @@ public class SupabaseStorageService : IStorageService
         await using Stream stream = blob.Content();
         await using MemoryStream memoryStream = new();
         await stream.CopyToAsync(memoryStream, cancellationToken);
+        await _supabaseClient.Storage.From(bucket).Remove(path);
         await _supabaseClient.Storage.From(bucket)
             .Upload(memoryStream.ToArray(), path,
                 new FileOptions { Upsert = true });

@@ -13,6 +13,7 @@ public class UserProfile : EndpointGroupBase
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
+            .DisableAntiforgery()
             .MapGet(GetUserProfile)
             .MapPost(AddUserProfileImage, "image")
             .MapPost(UpdateUserProfile);

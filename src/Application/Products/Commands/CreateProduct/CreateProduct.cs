@@ -27,17 +27,21 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
 public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, long>
 {
     private readonly IApplicationDbContext _context;
-    private readonly IStorageService _storageService;
 
-    public CreateProductCommandHandler(IApplicationDbContext context, IStorageService storageService)
+    public CreateProductCommandHandler(IApplicationDbContext context)
     {
         _context = context;
-        _storageService = storageService;
     }
 
     public async Task<long> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
-        Product entity = new() { Name = request.Name, Price = request.Price, Description = request.Description };
+        Product entity = new()
+        {
+            Name = request.Name,
+            Price = request.Price,
+            Description = request.Description,
+            Quantity = request.Quantity
+        };
 
         _context.Products.Add(entity);
 

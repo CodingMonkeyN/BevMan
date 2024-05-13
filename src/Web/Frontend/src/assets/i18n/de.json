@@ -19,7 +19,11 @@
   },
   "PRODUCTS": {
     "TITLE": "Getränke",
+    "TITLE_WITH_BALANCE": "Getränke ({amount} €)",
     "SLIDE_ACTION_BUY": "Kaufen",
+    "BUY_ERROR": "Fehler beim Kaufen des Getränks. Bitte prüfen Sie Ihr Guthaben.",
+    "QUANTITY": "Bestand: {quantity}",
+    "BUY_SUCCESS": "Getränk wurde erfolgreich gekauft",
     "EDITOR": {
       "TITLE": "Getränk bearbeiten",
       "NAME_LABEL": "Name",
@@ -27,6 +31,8 @@
       "QUANTITY_LABEL": "Anzahl auf Lager",
       "DESCRIPTION_LABEL": "Beschreibung",
       "SAVE_BUTTON": "Produkt speichern",
+      "ADD_IMAGE": "Bild hinzufügen",
+      "DELETE_IMAGE": "Bild entfernen",
       "DELETE_BUTTON": "Produkt löschen"
     }
   },

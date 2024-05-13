@@ -6,4 +6,5 @@ public class User
     public Guid Id { get; init; }
     public required string Email { get; init; }
     public Balance Balance { get; set; } = null!;
+    public UserProfile Profile { get; set; } = null!;
 }

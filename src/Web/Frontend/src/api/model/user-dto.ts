@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { UserProfileDto } from './user-profile-dto';
 import { BalanceDto } from './balance-dto';
 
 
@@ -17,5 +18,6 @@ export interface UserDto {
     email: string;
     roles: Array<string>;
     balance?: BalanceDto;
+    profile?: UserProfileDto;
 }
 
