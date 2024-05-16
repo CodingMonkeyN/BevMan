@@ -19,6 +19,7 @@ public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, IEnumerable<U
     public async Task<IEnumerable<UserDto>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
     {
         return await _context.Users
+            .Where(user => user.ConfirmedAt != null)
             .Include(user => user.Roles)
             .Include(user => user.Balance)
             .Include(user => user.Profile)

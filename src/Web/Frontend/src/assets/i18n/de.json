@@ -6,7 +6,7 @@
     "PASSWORD_LABEL": "Passwort",
     "LOGIN_BUTTON": "Anmelden",
     "SIGNUP_BUTTON": "Regestrieren",
-    "ERROR": {
+    "ERRORS": {
       "INVALID_CREDENTIALS": "Ungültige Anmeldedaten"
     }
   },

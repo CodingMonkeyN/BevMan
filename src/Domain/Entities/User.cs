@@ -7,4 +7,5 @@ public class User
     public required string Email { get; init; }
     public Balance Balance { get; set; } = null!;
     public UserProfile Profile { get; set; } = null!;
+    public DateTime? ConfirmedAt { get; set; }
 }
