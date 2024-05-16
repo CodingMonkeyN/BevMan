@@ -18,12 +18,12 @@ import {
   IonThumbnail,
   IonTitle,
   IonToolbar,
+  RefresherCustomEvent,
 } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { UserService } from '../../../api';
 import { injectQuery, injectQueryClient } from '@ngneat/query';
-import { RefresherCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-user',

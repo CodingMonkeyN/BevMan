@@ -28,6 +28,8 @@ import {
   IonThumbnail,
   IonTitle,
   IonToolbar,
+  LoadingController,
+  RefresherCustomEvent,
 } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
@@ -38,7 +40,6 @@ import { injectMutation, injectQuery, injectQueryClient } from '@ngneat/query';
 import { NotificationService } from '../../services/notification.service';
 import { addIcons } from 'ionicons';
 import { add } from 'ionicons/icons';
-import { LoadingController, RefresherCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-product-page',

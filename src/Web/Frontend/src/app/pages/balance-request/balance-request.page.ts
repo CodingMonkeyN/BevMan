@@ -17,9 +17,9 @@ import {
   IonText,
   IonTitle,
   IonToolbar,
+  RefresherCustomEvent,
 } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
-import { RefresherCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-balance-request-page',

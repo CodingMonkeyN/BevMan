@@ -16,6 +16,7 @@ import {
   IonThumbnail,
   IonTitle,
   IonToolbar,
+  LoadingController,
 } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProductPage } from '../product-page';
@@ -27,7 +28,6 @@ import { filter, switchMap, tap } from 'rxjs';
 import { ProductDto, ProductService } from '../../../../api';
 import { injectMutation, injectQuery, injectQueryClient } from '@ngneat/query';
 import { NotificationService } from '../../../services/notification.service';
-import { LoadingController } from '@ionic/angular';
 
 interface ProductForm {
   name: FormControl<string>;

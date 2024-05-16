@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import {
+  ActionSheetButton,
   IonActionSheet,
   IonAvatar,
   IonButton,
@@ -22,6 +23,8 @@ import {
   IonText,
   IonTitle,
   IonToolbar,
+  LoadingController,
+  RefresherCustomEvent,
 } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -30,7 +33,6 @@ import { add } from 'ionicons/icons';
 import { BalanceService, UserProfileService, UserService } from '../../../api';
 import { SupabaseService } from '../../services/supabase.service';
 import { injectMutation, injectQuery, injectQueryClient } from '@ngneat/query';
-import { ActionSheetButton, LoadingController, RefresherCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-account',
