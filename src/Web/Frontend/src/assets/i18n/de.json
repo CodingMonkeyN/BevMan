@@ -56,7 +56,21 @@
     "LOGOUT": "Abmelden",
     "ADD_BALANCE": "Guthaben aufladen",
     "CHANGE_PROFILE_PICTURE": "Profilbild ändern",
-    "DELETE": "Account löschen"
+    "DELETE": "Account löschen",
+    "LANGUAGE": {
+      "GERMAN": "Deutsch",
+      "ENGLISH": "Englisch"
+    }
+  },
+  "SIGN_UP": {
+    "CREATE_ACCOUNT": "Account erstellen",
+    "EMAIL": "Email",
+    "PASSWORD": "Passwort",
+    "PASSWORD_CONFIRM": "Passwort bestätigen",
+    "SIGN_UP": "Registrieren",
+    "ERROR": {
+      "PASSWORD_MISMATCH": "Passwörter stimmen nicht überein"
+    }
   },
   "ADD_BALANCE": {
     "TITLE": "Guthaben hinzufügen",

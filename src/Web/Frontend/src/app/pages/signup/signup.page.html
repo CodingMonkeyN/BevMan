@@ -1,27 +1,27 @@
 <ion-header>
   <ion-toolbar>
     <ion-back-button defaultHref="login" slot="start"></ion-back-button>
-    <ion-title>SignUp</ion-title>
+    <ion-title translate>SIGN_UP.CREATE_ACCOUNT</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="ion-padding">
     <h1>BevMan</h1>
-    <p>Create an Account for BevMan</p>
+    <p translate>SIGN_UP.CREATE_ACCOUNT</p>
   </div>
   <ion-list inset="true">
     <form (ngSubmit)="handleSignup($event)">
       <ion-item>
-        <ion-label position="stacked">Email</ion-label>
+        <ion-label position="stacked" translate>SIGN_UP.EMAIL</ion-label>
         <ion-input type="email" [(ngModel)]="email" name="email" autocomplete></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="stacked">Password</ion-label>
+        <ion-label position="stacked" translate>SIGN_UP.PASSWORD</ion-label>
         <ion-input type="password" [(ngModel)]="password" name="password" autocomplete="new-password"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="stacked">Confirm Password</ion-label>
+        <ion-label position="stacked" translate>SIGN_UP.PASSWORD_CONFIRM</ion-label>
         <ion-input
           type="password"
           [(ngModel)]="confirmPassword"
@@ -29,11 +29,11 @@
           autocomplete="new-password"></ion-input>
       </ion-item>
       <ion-item *ngIf="password !== confirmPassword && confirmPassword !== ''">
-        <ion-label color="danger">Passwords do not match</ion-label>
+        <ion-label color="danger" translate>SIGN_UP.ERROR.PASSWORD_MISMATCH</ion-label>
       </ion-item>
 
       <div class="ion-text-center">
-        <ion-button type="submit" fill="clear">SignUp</ion-button>
+        <ion-button type="submit" fill="clear">{{ "SIGN_UP.SIGN_UP" |translate }}</ion-button>
       </div>
     </form>
   </ion-list>

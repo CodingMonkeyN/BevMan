@@ -19,6 +19,8 @@ import {
   IonRefresher,
   IonRefresherContent,
   IonRouterLink,
+  IonSelect,
+  IonSelectOption,
   IonSkeletonText,
   IonText,
   IonTitle,
@@ -64,6 +66,8 @@ import { injectMutation, injectQuery, injectQueryClient } from '@ngneat/query';
     IonButtons,
     IonRefresher,
     IonRefresherContent,
+    IonSelect,
+    IonSelectOption,
   ],
 })
 export class AccountPage {
@@ -122,6 +126,11 @@ export class AccountPage {
       role: 'cancel',
     },
   ];
+  protected readonly lanuageOptions = [
+    { value: 'de', text: this.translate.instant('ACCOUNT.LANGUAGE.GERMAN') },
+    { value: 'en', text: this.translate.instant('ACCOUNT.LANGUAGE.ENGLISH') },
+  ];
+  protected language = localStorage.getItem('language') ?? 'de';
 
   private readonly balanceService = inject(BalanceService);
   private readonly supabase = inject(SupabaseService);
@@ -145,6 +154,11 @@ export class AccountPage {
     await this.supabase.signOut();
     this.#queryClient.removeQueries();
     await this.router.navigate(['/login'], { replaceUrl: true });
+  }
+
+  protected changeLanguage(language: string): void {
+    localStorage.setItem('language', language);
+    this.translate.use(language);
   }
 
   async update(event: RefresherCustomEvent): Promise<void> {

@@ -58,5 +58,11 @@
   <input #fileInput type="file" (change)="pickFile(fileInput)" class="hidden" />
 </ion-content>
 <ion-footer>
-  <ion-button id="delete-account" color="danger" size="full" translate>ACCOUNT.DELETE</ion-button>
+  <ion-item>
+    <ion-select [(ngModel)]="language" (ngModelChange)="changeLanguage($event)">
+      @for (language of lanuageOptions; track language) {
+      <ion-select-option [value]="language.value">{{ language.text }}</ion-select-option>
+      }
+    </ion-select>
+  </ion-item>
 </ion-footer>

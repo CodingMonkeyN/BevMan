@@ -11,6 +11,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent {
   constructor(translate: TranslateService) {
-    translate.use('de');
+    const language = localStorage.getItem('language');
+    console.log(language);
+    translate.use(language ?? 'de');
   }
 }

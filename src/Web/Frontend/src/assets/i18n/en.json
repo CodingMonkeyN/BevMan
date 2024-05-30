@@ -1,0 +1,86 @@
+{
+  "LOGIN": {
+    "TITLE": "Login",
+    "TEXT": "Login with email and password",
+    "EMAIL_LABEL": "Email",
+    "PASSWORD_LABEL": "Password",
+    "LOGIN_BUTTON": "Login",
+    "SIGNUP_BUTTON": "Sign Up",
+    "ERRORS": {
+      "INVALID_CREDENTIALS": "Invalid credentials"
+    }
+  },
+  "GLOBAL": {
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "ERROR": {
+      "QUERY": "Error loading data"
+    }
+  },
+  "PRODUCTS": {
+    "TITLE": "Drinks",
+    "TITLE_WITH_BALANCE": "Drinks ({amount} €)",
+    "SLIDE_ACTION_BUY": "Buy",
+    "BUY_ERROR": "Error buying the drink. Please check your balance.",
+    "QUANTITY": "Stock: {quantity}",
+    "BUY_SUCCESS": "Drink was successfully bought",
+    "EDITOR": {
+      "TITLE": "Edit Drink",
+      "NAME_LABEL": "Name",
+      "PRICE_LABEL": "Price in Euro",
+      "QUANTITY_LABEL": "Stock quantity",
+      "DESCRIPTION_LABEL": "Description",
+      "SAVE_BUTTON": "Save product",
+      "ADD_IMAGE": "Add image",
+      "DELETE_IMAGE": "Remove image",
+      "DELETE_BUTTON": "Delete product"
+    }
+  },
+  "USER": {
+    "TITLE": "User Management",
+    "SLIDE_ACTION_CHANGE_ROLE": "Change role",
+    "SLIDE_ACTION_REMOVE_USER": "Remove user",
+    "DETAILS": {
+      "ROLES": "Roles"
+    },
+    "ROLES": {
+      "ADMIN": "Administrator",
+      "USER": "User",
+      "USER_MANAGER": "User Manager"
+    }
+  },
+  "ACCOUNT": {
+    "TITLE": "Account",
+    "ACTIONS": "Actions",
+    "BALANCE": "Current balance: {amount} ({amountInApproval}) €",
+    "LOGOUT": "Logout",
+    "ADD_BALANCE": "Add balance",
+    "CHANGE_PROFILE_PICTURE": "Change profile picture",
+    "DELETE": "Delete account",
+    "LANGUAGE": {
+      "GERMAN": "German",
+      "ENGLISH": "English"
+    }
+  },
+  "ADD_BALANCE": {
+    "TITLE": "Add balance",
+    "AMOUNT": "Amount in Euro",
+    "ERROR": "Error adding balance"
+  },
+  "SIGN_UP": {
+    "CREATE_ACCOUNT": "Create Account",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "PASSWORD_CONFIRM": "Confirm Password",
+    "SIGN_UP": "Sign Up",
+    "ERROR": {
+      "PASSWORD_MISMATCH": "Passwords do not match"
+    }
+  },
+  "BALANCE_REQUEST": {
+    "TITLE": "Balance Requests",
+    "APPROVE": "Approve",
+    "REJECT": "Reject",
+    "NO_REQUESTS": "No requests available"
+  }
+}

@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { SupabaseService } from '../../services/supabase.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signup',
@@ -34,6 +35,7 @@ import { SupabaseService } from '../../services/supabase.service';
     FormsModule,
     IonBackButton,
     NgIf,
+    TranslateModule,
   ],
 })
 export class SignupPage {
