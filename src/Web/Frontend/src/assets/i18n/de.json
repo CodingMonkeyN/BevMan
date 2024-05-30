@@ -58,6 +58,7 @@
     "CHANGE_PROFILE_PICTURE": "Profilbild ändern",
     "DELETE": "Account löschen",
     "LANGUAGE": {
+      "LABEL": "Sprache",
       "GERMAN": "Deutsch",
       "ENGLISH": "Englisch"
     }

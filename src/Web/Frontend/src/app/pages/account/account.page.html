@@ -59,7 +59,10 @@
 </ion-content>
 <ion-footer>
   <ion-item>
-    <ion-select [(ngModel)]="language" (ngModelChange)="changeLanguage($event)">
+    <ion-select
+      [label]="'ACCOUNT.LANGUAGE.LABEL' | translate"
+      [(ngModel)]="language"
+      (ngModelChange)="changeLanguage($event)">
       @for (language of lanuageOptions; track language) {
       <ion-select-option [value]="language.value">{{ language.text }}</ion-select-option>
       }
