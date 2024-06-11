@@ -36,7 +36,9 @@
           alt="" />
       </ion-avatar>
       <div class="flex flex-col">
-        <ion-label class="flex flex-col"> {{ user.profile?.displayName ?? user.email }}</ion-label>
+        <ion-label class="flex flex-col">
+          {{ (user.profile?.displayName?.length ?? 0) > 0 ? user.profile?.displayName : user.email }}
+        </ion-label>
         <ion-note> {{ user.balance?.amount ?? 0 }} €</ion-note>
       </div>
     </ion-item>
