@@ -21,9 +21,6 @@
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">{{ 'ACCOUNT.TITLE' | translate }}</ion-title>
-      @if (user().isLoading) {
-      <ion-skeleton-text [animated]="true"></ion-skeleton-text>
-      }
       <ion-avatar id="user-profile" slot="end">
         @if (user().data; as user) {
         <img [src]="user?.avatarUrl ? user.avatarUrl : 'https://ionicframework.com/docs/img/demos/avatar.svg'" alt="" />
