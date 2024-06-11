@@ -36,6 +36,9 @@
       "DELETE_BUTTON": "Produkt löschen"
     }
   },
+  "PRODUCT_DETAILS": {
+    "ERROR": "Fehler beim Speichern der Daten"
+  },
   "USER": {
     "TITLE": "Nutzerverwaltung",
     "SLIDE_ACTION_CHANGE_ROLE": "Rolle anpassen",

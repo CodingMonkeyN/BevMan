@@ -36,6 +36,9 @@
       "DELETE_BUTTON": "Delete product"
     }
   },
+  "PRODUCT_DETAILS": {
+    "ERROR": "Error saving product details"
+  },
   "USER": {
     "TITLE": "User Management",
     "SLIDE_ACTION_CHANGE_ROLE": "Change role",

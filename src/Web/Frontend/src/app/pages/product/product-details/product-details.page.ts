@@ -143,7 +143,7 @@ export class ProductDetailsPage {
     onSuccess: async () => {
       await this.loadingController.dismiss();
       await this.#queryClient.invalidateQueries({ queryKey: ['products'] });
-      await this.router.navigate(['..', { relativeTo: this.route }]);
+      await this.router.navigateByUrl('/tabs/products');
     },
     onError: async () => {
       await this.loadingController.dismiss();
@@ -156,7 +156,7 @@ export class ProductDetailsPage {
     onSuccess: async () => {
       await this.loadingController.dismiss();
       await this.#queryClient.invalidateQueries({ queryKey: ['products'] });
-      await this.router.navigate(['..', { relativeTo: this.route }]);
+      await this.router.navigateByUrl('/tabs/products');
     },
     onError: async () => {
       await this.loadingController.dismiss();
@@ -173,7 +173,7 @@ export class ProductDetailsPage {
     this.route.params
       .pipe(
         takeUntilDestroyed(),
-        filter(({ id }) => !!id),
+        filter(({ id }) => parseInt(id, 10) > 0),
         switchMap(
           ({ id }) =>
             this.#query({
@@ -181,7 +181,6 @@ export class ProductDetailsPage {
               queryFn: () => this.productService.getProduct(id),
             }).result$,
         ),
-        tap(product => console.log(product.data)),
         tap(product => this.product.set(product.data)),
       )
       .subscribe(product => this.form.patchValue(product.data as ProductFormValue));
